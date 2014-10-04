@@ -1,6 +1,6 @@
-# Info
+# Application Process Assignments
 
-Solutions to the assignments for the application process:
+Links to the solutions:
 
 * Beers and fries
 
