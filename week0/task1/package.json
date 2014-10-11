@@ -1,0 +1,18 @@
+{
+  "name": "converter",
+  "version": "0.0.1",
+  "description": "converts local or networked files from ini to json and vice versa",
+  "bin": {
+    "converter": "converter.js"
+  },
+  "keywords": [
+    "ini",
+    "json",
+    "http",
+    "converter"
+  ],
+  "author": {
+    "name": "Plamen Todorov"
+  },
+  "license": "MIT"
+}

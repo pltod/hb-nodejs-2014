@@ -1,6 +1,14 @@
+This repo contains all the code written during the NodeJS 2014 course offered by HackBulgaria.
+
+
 # Application Process Assignments
 
-Links to the solutions:
+Assignments specifications:
+
+> https://github.com/HackBulgaria/NodeJS-1/tree/master/TasksForCourseApply
+
+
+Links to my solutions are as follows:
 
 * Beers and fries
 
@@ -16,3 +24,19 @@ Links to the solutions:
 * Mocha Test Suite in Express Node.js App
 
 > https://github.com/pltod/hb-nodejs-2014-three
+
+
+# Course Assignments
+
+Course materials:
+
+> https://github.com/HackBulgaria/NodeJS-1
+
+
+The solutions to tasks done during the course are in the corresponding task folders for each week. See each task folder readme files for more specific information.
+
+
+
+# License
+
+MIT
