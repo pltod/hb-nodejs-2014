@@ -12,17 +12,21 @@ Task specification:
 
 ## Approach
 
-* modules explanation
-
-* command
-
-> TODO other assumptions
+TODO: Brief explanation of the solution
 
 ## How to Run It
 
-Two ways 
+Two ways:
 
-* In task 1 folder write node converter.js [file location]
+* In task 1 folder write
+
+> ```converter.js [file location]```
+
+or 
+
+* Register converter as terminal command with ```npm link``` and run it from any location with:
+
+> ```converter [file location]```
 
 
 ## Lessons Learned

@@ -1,21 +1,21 @@
 var fs = require('fs');
-var file = {};
-var sname;
-var pname;
-var pvalue;
+var outputString = "";
 
-module.exports = function (data, fileName) {
+module.exports = function (data) {
   var obj = JSON.parse(data);
   var sections = getSections(obj);
+  
   sections.forEach(function (section) {
-    var current = obj[section];
-    appendToFile('['.concat(section).concat(']').concat('\n'), fileName);
-    var lines = getLines(current);
+    var currentSection = obj[section];
+    var lines = getLines(currentSection);
+    append('['.concat(section).concat(']').concat('\n'));
     lines.forEach(function (line) {
-      appendToFile(line.concat('=').concat(current[line]).concat('\n'), fileName);
+      append(line.concat('=').concat(currentSection[line]).concat('\n'));
     })
-    appendToFile('\n', fileName);
+    append('\n');
   })
+  
+  return outputString;
 }
 
 
@@ -27,6 +27,6 @@ function getLines(section) {
   return Object.keys(section);
 }
 
-function appendToFile(data, fileName) {
-  fs.appendFileSync(fileName, data, 'utf-8');
+function append(data) {
+  outputString = outputString.concat(data);
 }

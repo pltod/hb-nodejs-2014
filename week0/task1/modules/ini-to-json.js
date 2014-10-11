@@ -1,5 +1,7 @@
 var fs = require('fs');
 var file = {};
+
+// TODO refactor these
 var sname;
 var pname;
 var pvalue;
@@ -7,12 +9,7 @@ var pvalue;
 module.exports = function (data, fileName) {
   transform(data);
   return JSON.stringify(file,null,'\t');
-  //writeToFile(fileName);  
 }
-
-// function writeToFile(fileName) {
-//   fs.writeFileSync(fileName, JSON.stringify(file,null,'\t'), 'utf-8')
-// }
 
 function transform(data) {
   var sections = data.split('\n');
