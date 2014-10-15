@@ -2,7 +2,6 @@ var debug = require('debug')('db-test');
 var storage = require('node-persist');
 var dbUtils = require("./db-utils");
 var _ = require('underscore');
-//var collections = ['subscribers.json', 'articles.json', 'maxitem.json'];
 
 module.exports = {
   insertMany: insertMany,
