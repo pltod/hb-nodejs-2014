@@ -44,7 +44,8 @@ test('### Insert Item ###', function(t) {
 
 test('### Insert Item With ID ###', function(t) {
   db.rmAll(collection);  
-  db.insertWithID(collection, item);
+  var generatedId = db.insertWithID(collection, item);
+  t.ok(generatedId, 'The generated id is returned after generation');
   var obtained = db.findAll(collection);
   t.equal(1, obtained.length, 'Item has been inserted');
   t.ok(obtained[0].uid, 'Item has uid property')

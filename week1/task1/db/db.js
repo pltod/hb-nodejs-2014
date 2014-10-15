@@ -37,7 +37,8 @@ function insertWithID(collection, item) {
   item.uid = dbUtils.uid();
   var current = storage.getItem(collection);
   current.push(item);
-  storage.setItem(collection, current); 
+  storage.setItem(collection, current);
+  return item.uid;
 }
 
 function findAll(collection) {
