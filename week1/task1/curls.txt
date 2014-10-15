@@ -1,6 +1,0 @@
-curl -H "Content-Type: application/json" --data @s1.json http://localhost:3000/subscribe
-
-curl -H "Content-Type: application/json" --data @body1.json http://localhost:3000/unsubscribe
-
-
-curl -H "Content-Type: application/json" --data @newArticles.json http://localhost:3001/newArticles
