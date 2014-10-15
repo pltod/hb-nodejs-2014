@@ -1,38 +1,35 @@
 var uuid = require('node-uuid');
-var storage = require('node-persist');
+var db = require('./db');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-
-storage.init();
-console.log(__dirname);
+var collection = "subscribers.json";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
-  res.send('Hello from Subscriber!');
-});
-
-app.get('/listSubscribers', function (req, res) {
-  storage.values(function(vals) {
-    res.send(vals);
-  });
+  res.send('Hello from Subscriber Module!');
 });
 
 app.post('/subscribe', function (req, res) {
-  var subscrId = uuid.v4();
-  storage.setItem(subscrId, req.body);
-  res.send(subscrId);
+  var id = db.insertWithID(collection, req.body);
+  var result = {
+    "email": req.body.email,
+    "subscriberId": id
+  }
+  res.send(result);
 });
 
 app.post('/unsubscribe', function (req, res) {
-  storage.removeItem(req.body.key);
-  res.send('Removed!');
+  db.rm(collection, req.body.subscriberId);
+  res.send(req.body.subscriberId + ' has been removed!');
 });
 
-var server = app.listen(3000, function () {
+app.get('/listSubscribers', function (req, res) {
+  res.send(db.findAll(collection));
+});
 
-  console.log('Example app listening at localhost port: ' + server.address().port);
-
+app.listen(3000, function () {
+  console.log('Server is listening on localhost, port: ' + 3000);
 })

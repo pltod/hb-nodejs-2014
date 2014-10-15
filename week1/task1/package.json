@@ -1,5 +1,5 @@
 {
-  "name": "task1",
+  "name": "week1-task1",
   "version": "0.0.0",
   "description": "using HN Firebase API with Express and other stuff",
   "main": "index.js",
