@@ -7,9 +7,10 @@ var maxItemCollection = 'maxitem.json';
 var lastItemUsed = db.findAll(maxItemCollection);
 var ids = [];
 
-// TODO run this each two minutes
-// TODO call the notifier
 runProcess();
+setInterval(function() {
+  runProcess();
+}, 60 * 2000);
 
 function runProcess() {
   step1_getLatestMaxItem();
@@ -49,7 +50,8 @@ function step2_getAllArticles() {
         step3_ProcessFoundData(dataJSON);
         
         if (isLast) {
-          // TODO Call Notifier
+          console.log(url);
+          console.log('TODO: Call Notifier');
         }
       });
     }).on('error', function(e) {
