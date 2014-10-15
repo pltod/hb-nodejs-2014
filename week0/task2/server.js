@@ -1,10 +1,6 @@
 var http = require('http');
+var db = require('./db');
 
-// In the form objects with: user, key, chirps[]
-var DB = [
-{"user": "One", "key": 1, "chirps": ['test1', "test2"]}, 
-{"user": "Two", "key": 2, "chirps": ['test3']}
-];
 
 http.createServer(function (req, res) {
   var URL = req.url;
@@ -27,13 +23,13 @@ http.createServer(function (req, res) {
     res.writeHead(200, "OK", {'Content-Type': 'text/html'});
     
     if (isGET(METHOD) && URL === "/all_chirps") {
-      res.end(getAllChirps());
+      res.end(JSON.stringify(getAllChirps()));
     } else if (isGET(METHOD) && URL === "/all_users") {
-      res.end(getAllUsers());
+      res.end(JSON.stringify(getAllUsers()));
     } else if (isGET(METHOD) && URL === "/my_chirps") {
-      res.end(getMyChirps());
+      res.end(JSON.stringify(getMyChirps()));
     } else if (isPOST(METHOD) && URL === "/chirp") {
-      res.end(postChirp());
+      res.end(postChirp(payload));
     } else if (isPOST(METHOD) && URL === "/register") {
       res.end(register(payload));
     } else if (isDELETE(METHOD) && URL === "/chirp") {
@@ -45,37 +41,28 @@ http.createServer(function (req, res) {
     }
   });
 
-}).listen(9615);
+}).listen(8080);
 
 function getMyChirps() {
   return "MY CHIRPS";  
 }
 
-function postChirp() {
-  return "CHIRP POSTED";  
+function postChirp(payload) {
+  var p = JSON.parse(payload)
+  console.log(p);
+  return db.insertChirp(p.key, p.message);  
 }
 
 function getAllChirps() {
-  if (DB.length === 0) {
-    return "THERE ARE NO CHIRPS AT ALL!";    
-  }
-  return DB.reduce(function (previous, current) {
-    return previous.concat(current.chirps);
-  }, []).toString();
+  return db.findAllChirps();
 }
 
 function getAllUsers() {
-  if (DB.length === 0) {
-    return "THERE ARE NO USERS AT ALL!";    
-  }
-  return DB.reduce(function (previous, current) {
-    return previous.concat(current.user);
-  }, []).toString();
+  return db.findAllUsers();
 }
 
 function register(payload) {
-  DB.push(payload);
-  return DB.toString();  
+  return db.insertUser(JSON.parse(payload));
 }
 
 function getUserChirps() {

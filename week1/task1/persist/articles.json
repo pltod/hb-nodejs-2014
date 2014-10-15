@@ -1,0 +1,196 @@
+[
+    {
+        "by": "vertigo83",
+        "dead": true,
+        "id": 8458341,
+        "score": 1,
+        "text": "",
+        "time": 1413380601,
+        "title": "Convertio \u2013 Advanced Online Free Tool to Convert Files to Any Format",
+        "type": "story",
+        "url": "https://convertio.co/"
+    },
+    {
+        "by": "mectors",
+        "id": 8458343,
+        "score": 1,
+        "text": "",
+        "time": 1413380602,
+        "title": "The Cloud Winners and Losers",
+        "type": "story",
+        "url": "http://telruptive.com/2014/10/15/the-cloud-winners-and-losers/"
+    },
+    {
+        "by": "alphadevx",
+        "id": 8458372,
+        "score": 1,
+        "text": "",
+        "time": 1413381029,
+        "title": "Apple, Facebook to pay for female employees to freeze eggs",
+        "type": "story",
+        "url": "http://www.irishtimes.com/news/health/apple-facebook-to-pay-for-female-employees-to-freeze-eggs-1.1964295"
+    },
+    {
+        "by": "jsonmez",
+        "id": 8458398,
+        "score": 1,
+        "text": "",
+        "time": 1413381295,
+        "title": "Getting Started with Meteor Tutorial (In the Cloud)",
+        "type": "story",
+        "url": "http://simpleprogrammer.com/2014/10/13/getting-started-meteor-tutorial-cloud/"
+    },
+    {
+        "by": "mikeihbe",
+        "id": 8458374,
+        "score": 1,
+        "text": "",
+        "time": 1413381062,
+        "title": "Benchmarking Riak 2.0",
+        "type": "story",
+        "url": "https://medium.com/@mustwin/benchmarking-riak-bfee93493419"
+    },
+    {
+        "by": "piggott7",
+        "id": 8458381,
+        "score": 1,
+        "text": "",
+        "time": 1413381190,
+        "title": "Customer Best Practices on What Questions to Ask and When [Slideshare]",
+        "type": "story",
+        "url": "http://blog.listenloop.com/customer-best-practices-what_when-to-ask-questions"
+    },
+    {
+        "by": "samanthau",
+        "id": 8458387,
+        "score": 1,
+        "text": "",
+        "time": 1413381222,
+        "title": "Bankrate: Mortgage Rates Sink to 16-Month Low",
+        "type": "story",
+        "url": "http://www.powersiteblog.com/bankrate-mortgage-rates-sink-to-16-month-low/#sthash.MJPZeriz.x5nTDWec.dpbs"
+    },
+    {
+        "by": "slotjobs",
+        "dead": true,
+        "id": 8458351,
+        "score": 1,
+        "text": "",
+        "time": 1413380719,
+        "title": "Slotjobs \u2013 Unemployed? Slotjobs matches you with jobs and business deals locally",
+        "type": "story",
+        "url": "https://www.slotjobs.com"
+    },
+    {
+        "by": "jonathancreamer",
+        "id": 8458344,
+        "kids": [
+            8458413
+        ],
+        "score": 3,
+        "time": 1413380608,
+        "title": "JavaScript Architecture for the 23rd Century \u2013 Modern Web",
+        "type": "story",
+        "url": "http://modernweb.com/2014/10/15/javascript-architecture-23rd-century/"
+    },
+    {
+        "by": "ilamont",
+        "id": 8458431,
+        "score": 1,
+        "text": "",
+        "time": 1413381680,
+        "title": "Bush pilots hope lidar and ifsar can help them fly in Alaska",
+        "type": "story",
+        "url": "http://www.washingtonpost.com/business/economy/alaskas-outdated-maps-make-flying-a-peril-but-a-high-tech-fix-is-slowly-gaining-ground/2014/10/14/bc2e601e-4fd4-11e4-8c24-487e92bc997b_story.html"
+    },
+    {
+        "by": "frostmatthew",
+        "id": 8458392,
+        "score": 2,
+        "text": "",
+        "time": 1413381256,
+        "title": "Docker Containers Performance in VMware vSphere",
+        "type": "story",
+        "url": "http://blogs.vmware.com/performance/2014/10/docker-containers-performance-vmware-vsphere.html"
+    },
+    {
+        "by": "newhaircutco",
+        "id": 8458435,
+        "score": 1,
+        "text": "",
+        "time": 1413381745,
+        "title": "How to Create a Fundable Pitch Deck",
+        "type": "story",
+        "url": "http://blog.newhaircut.com/create-fundable-investor-pitch/?utm_source=hackernews&utm_medium=article&utm_campaign=squeezepage"
+    },
+    {
+        "by": "johmas",
+        "id": 8458421,
+        "score": 1,
+        "text": "",
+        "time": 1413381520,
+        "title": "Why We Shut Down Our Viral Growth Campaign",
+        "type": "story",
+        "url": "https://medium.com/@evanamaridou/fd99c2cf01ba"
+    },
+    {
+        "by": "sassyalex",
+        "id": 8458415,
+        "score": 3,
+        "text": "",
+        "time": 1413381450,
+        "title": "PM2 Node.js process manager, 0.11 released",
+        "type": "story",
+        "url": "https://keymetrics.io/2014/10/15/pm2-0-11-release/"
+    },
+    {
+        "by": "rouma7",
+        "id": 8458432,
+        "score": 1,
+        "text": "",
+        "time": 1413381688,
+        "title": "AMA: Anonabox dev (bursts into flames)",
+        "type": "story",
+        "url": "https://www.reddit.com/r/anonabox/comments/2ja22g/hi_im_august_germar_a_developer_for_the_anonabox/"
+    },
+    {
+        "by": "jenwike",
+        "id": 8458414,
+        "score": 1,
+        "text": "",
+        "time": 1413381433,
+        "title": "Octocat as President George Washington",
+        "type": "story",
+        "url": "http://opensource.com/government/14/10/interview-ben-balter-github"
+    },
+    {
+        "by": "Element_",
+        "id": 8458371,
+        "score": 2,
+        "text": "",
+        "time": 1413381026,
+        "title": "Lockheed Claims Breakthrough on Fusion Engery",
+        "type": "story",
+        "url": "http://www.scientificamerican.com/article/lockheed-claims-breakthrough-on-fusion-energy/"
+    },
+    {
+        "by": "Turukawa",
+        "id": 8458405,
+        "score": 1,
+        "text": "",
+        "time": 1413381336,
+        "title": "Making Everyone Count: Identification for Development",
+        "type": "story",
+        "url": "http://live.worldbank.org/making-everyone-count"
+    },
+    {
+        "by": "AndrewRH",
+        "id": 8458389,
+        "score": 1,
+        "text": "",
+        "time": 1413381236,
+        "title": "Rackspace Launches Cloud Big Data OnMetal",
+        "type": "story",
+        "url": "http://www.rackspace.com/blog/big-data-on-bare-metal-dont-sacrifice-performance-for-flexibility/"
+    }
+]
