@@ -42,14 +42,7 @@
 
 * Hacker News Firebase API
 
-> https://github.com/HackerNews/API
-
-* Examples
-
-> with react https://github.com/insin/react-hn
-
-> https://github.com/dstaley/realtime-hacker-news
-  
+> https://github.com/HackerNews/API  
   
 
 
