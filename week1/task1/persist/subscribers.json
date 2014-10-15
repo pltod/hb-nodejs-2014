@@ -1,1 +1,26 @@
-[{"email":"1@4th.dim","keywords":["coffee","destruction","omniscience"],"uid":"15b47a45-0c53-4f3d-bce9-0840a83b8a9f"},{"email":"2@4th.dim","keywords":["Dropbox","Cool"],"uid":"67109a26-1a08-459f-84af-5f4a6dfda312"},{"email":"3@4th.dim","keywords":["Dropbox"],"uid":"16667e08-7094-4046-882a-63c104641e0b"}]
+[
+    {
+        "email": "1@4th.dim",
+        "keywords": [
+            "coffee",
+            "destruction",
+            "Apple"
+        ],
+        "uid": "15b47a45-0c53-4f3d-bce9-0840a83b8a9f"
+    },
+    {
+        "email": "2@4th.dim",
+        "keywords": [
+            "Startup",
+            "Phone"
+        ],
+        "uid": "67109a26-1a08-459f-84af-5f4a6dfda312"
+    },
+    {
+        "email": "3@4th.dim",
+        "keywords": [
+            "Dropbox"
+        ],
+        "uid": "16667e08-7094-4046-882a-63c104641e0b"
+    }
+]

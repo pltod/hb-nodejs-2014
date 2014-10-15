@@ -31,5 +31,5 @@ app.get('/listSubscribers', function (req, res) {
 });
 
 app.listen(3000, function () {
-  console.log('Server is listening on localhost, port: ' + 3000);
+  console.log('Server listens on localhost at port 3000');
 })

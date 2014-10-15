@@ -10,7 +10,8 @@ module.exports = {
   insertWithID: insertWithID,    
   findAll: findAll,
   rmAll: rmAll,
-  rm: rm
+  rm: rm,
+  replace: replace
 }
 
 storage.initSync();
@@ -43,6 +44,10 @@ function insertWithID(collection, item) {
 
 function findAll(collection) {
   return storage.getItem(collection);
+}
+
+function replace(collection, item) {
+  storage.setItem(collection, item);
 }
 
 function rmAll(collection) {

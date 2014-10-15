@@ -1,35 +1,32 @@
-var storage = require('node-persist');
+var db = require('./db');
 var https = require('https');
 var fs = require('fs');
 var _ = require('underscore');
-var maxItem = getStoredMaxItem();
+var articlesCollection = 'articles.json';
+var maxItemCollection = 'maxitem.json';
+var lastItemUsed = db.findAll(maxItemCollection);
 var ids = [];
 
-console.log(__dirname);
-
-storage.initSync();
-storage.setItem('articles.json', []);
-
+// TODO run this each two minutes
+// TODO call the notifier
 runProcess();
 
 function runProcess() {
   step1_getLatestMaxItem();
 }
 
-
 function step1_getLatestMaxItem() {
   https.get("https://hacker-news.firebaseio.com/v0/maxitem.json", function (res) {
-    var start = maxItem+1;
-    var end;
-    res.on('data', function(data) {
-      var currentItem = parseInt(data.toString());
-      if (maxItem === 0) {
-        ids = [currentItem];
+    res.on('data', function(itemId) {
+      var currentItem = parseInt(itemId.toString());
+
+      //Limit the items to 100
+      if ((currentItem - lastItemUsed) > 100 ) {
+        ids = _.range(currentItem - 100, currentItem + 1);
       } else {
-        end = currentItem + 1;
-        ids = _.range(start, end);
+        ids = _.range(lastItemUsed + 1, currentItem + 1);
       }
-      storeMaxItem(currentItem);
+      db.replace(maxItemCollection, currentItem);
       step2_getAllArticles();
     });
   }).on('error', function(e) { console.error(e) })
@@ -37,8 +34,8 @@ function step1_getLatestMaxItem() {
 
 
 function step2_getAllArticles() {
-  console.log(ids);
-  _.each(ids, function (id) {
+  _.each(ids, function (id, index) {
+    var isLast = (index == ids.length - 1);
     var url = "https://hacker-news.firebaseio.com/v0/item/" + id + ".json?print=pretty";
     https.get(url, function(res) {
       res.on('data', function(data) {
@@ -46,10 +43,14 @@ function step2_getAllArticles() {
         try {
           dataJSON = JSON.parse(data.toString())
         } catch(e) {
-          //Skip on incorrect JSON
+          //Some of the responses have incorrect JSON - skip these
           return;
         }
         step3_ProcessFoundData(dataJSON);
+        
+        if (isLast) {
+          // TODO Call Notifier
+        }
       });
     }).on('error', function(e) {
       console.error(e);
@@ -58,25 +59,7 @@ function step2_getAllArticles() {
 }
 
 function step3_ProcessFoundData(data) {
-  // This is what we do when we find data
-  // Write it in json file
-  // console.log(data);
-  console.log(data.type);
   if (data.type === 'story') {
-    console.log("storing: ")
-    console.log(data.id)
-    var articles = storage.getItem('articles.json');
-    articles.push(data);
-    storage.setItem('articles.json', articles)
-  } else {
-      console.log("skipping")
+    db.insert(articlesCollection, data)
   }
-}
-
-function getStoredMaxItem() {
-  return parseInt(fs.readFileSync("maxItem.txt", 'utf-8'));
-}
-
-function storeMaxItem(id) {
-  fs.writeFileSync("maxItem.txt", id, 'utf-8')
 }

@@ -3,7 +3,9 @@ var test = require("tape");
 var _ = require('underscore');
 var db = require("./db");
 
-var collection = 'subscriptions.json';
+var collection = 'subscribers.json';
+var collection2 = 'maxitem.json';
+
 var data = [
   {"email": "1@4th.dim", "keywords": ["coffee", "destruction", "omniscience"]},
   {"email": "2@4th.dim", "keywords": ["nodejs", "javascript"]}
@@ -60,5 +62,13 @@ test('### Remove Item ###', function(t) {
   db.rm(collection, item.uid);
   var obtained2 = db.findAll(collection);
   t.equal(obtained.length-1, obtained2.length, 'Item has been removed');
+  t.end();
+});
+
+test('### Replace Item ###', function(t) {
+  var current = db.findAll(collection2);
+  db.replace(collection2, current + 1);
+  var latest = db.findAll(collection2);
+  t.equal(current + 1, latest, 'Item has been replaced');
   t.end();
 });
