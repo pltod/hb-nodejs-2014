@@ -1,4 +1,4 @@
-This repo contains all the code written during the NodeJS 2014 course offered by HackBulgaria.
+This repo contains all the code written by me ([@pltod](https://twitter.com/pltod)) during the NodeJS 2014 course offered by [@HackBulgaria](https://twitter.com/hackbulgaria).
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -35,7 +35,7 @@ Course materials and task assignments are here:
 
 The solutions to tasks done during the course are in the corresponding task folders for each week. See each task folder readme files for more specific information. Here are shortcuts to the solutions:
 
-[Task 1, ini to JSON ans JSON to ini conversion service](https://github.com/pltod/hb-nodejs-2014/tree/master/week0/task1)
+[Task 1, ini to JSON and JSON to ini conversion service](https://github.com/pltod/hb-nodejs-2014/tree/master/week0/task1)
 
 [Task 2, Twitter like service for registering messages per users powered by Express](https://github.com/pltod/hb-nodejs-2014/tree/master/week0/task2)
 
