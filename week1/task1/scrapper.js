@@ -1,4 +1,5 @@
 var db = require('./db');
+var http = require('http');
 var https = require('https');
 var fs = require('fs');
 var _ = require('underscore');
@@ -50,8 +51,7 @@ function step2_getAllArticles() {
         step3_ProcessFoundData(dataJSON);
         
         if (isLast) {
-          console.log(url);
-          console.log('TODO: Call Notifier');
+          wakeUpNotifier()
         }
       });
     }).on('error', function(e) {
@@ -64,4 +64,27 @@ function step3_ProcessFoundData(data) {
   if (data.type === 'story') {
     db.insert(articlesCollection, data)
   }
+}
+
+function wakeUpNotifier() {
+  
+  var options = {
+    hostname: 'localhost',
+    port: 3001,
+    method: 'POST',
+    path: '/newArticles'    
+  };
+  
+  var req = http.request(options, function(res) {
+    res.on('data', function (chunk) {
+      console.log(chunk.toString());
+    });
+  });
+  
+  req.on('error', function(e) {
+    console.log('Problem with request: ' + e.message);
+  });
+  
+  req.end();    
+
 }
