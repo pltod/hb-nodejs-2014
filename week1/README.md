@@ -1,7 +1,15 @@
-# Topics Covered
+# Lessons Learned
+
+* express 
 
 * express body parser
 
-* think about 'async while loop' - no promises and async library used
+* 'async while loop' without promises and async library
+
+* nodemailer
+
+* persistence with node-persist
+
+* HN Firebase API 
 
 

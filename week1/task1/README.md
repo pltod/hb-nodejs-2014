@@ -12,7 +12,7 @@ Hacker News Firebase API:
 > https://github.com/HackerNews/API  
 
 
-# How to Run
+# How to Run the Solution
 
 * clone the repo
 

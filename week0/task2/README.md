@@ -1,23 +1,47 @@
-## The talk summary
+# Task Summary
 
-* JavaScript Scoping
 
-> function expressions name leakage and possibility for recursion using the function expression name
 
-* IIFE
+# How to Run the Solution
 
-* Command line debugger vs. node-inspector
+register, chirp create and read all are tested with curl
 
-* modules
+* TODO
 
-> directory with index.js
+> stringify all the response
 
-> directory with package.json and main property inside it to locate the file
+> parse the payload to get the params and pass them to DB layer
 
-> exports vs. module.exports
+> manage all exceptions where needed
 
-* http create server method
+> make a router with all the paths
 
-> The memory between each request remains. For example if we have counter it will increase with each request.
 
+* Example router: https://gist.github.com/RadoRado/affde79b108b0b909a5e
+
+
+* try tape deep equal for testing task1
+
+* http://smalljs.org/logging/debug/ -> very good debug module explanation
+
+* see node-inspector help for making converter help
+
+* update lab-nodejs modules to reflect the new test case exports === module.exports
+
+* use pattern to add the support of http methods to simulate express like server
+
+> db api - DONE
+
+> app api -> application logic
+
+> middleware api -> this is the express like stuff
+
+> server core + 'use' pattern to include the APIs - bare bone server that weaves db, middlware, app
+
+> client core (which is API as well)
+
+> 1) client test and 2) client cmd that both use client core
+
+
+# Architecture Notes
 
