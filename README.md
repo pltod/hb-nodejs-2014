@@ -1,3 +1,6 @@
+This repo contains all the code written during the NodeJS 2014 course offered by HackBulgaria.
+
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
@@ -8,8 +11,6 @@
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-This repo contains all the code written during the NodeJS 2014 course offered by HackBulgaria.
 
 
 # Repository Scafolding
