@@ -48,11 +48,7 @@ function step2_getAllArticles() {
           //Some of the responses have incorrect JSON - skip these
           return;
         }
-        step3_ProcessFoundData(dataJSON);
-        
-        if (isLast) {
-          wakeUpNotifier()
-        }
+        step3_ProcessFoundData(dataJSON, isLast);
       });
     }).on('error', function(e) {
       console.error(e);
@@ -60,9 +56,12 @@ function step2_getAllArticles() {
   })
 }
 
-function step3_ProcessFoundData(data) {
+function step3_ProcessFoundData(data, isLast) {
   if (data.type === 'story') {
     db.insert(articlesCollection, data)
+    if (isLast) {
+      wakeUpNotifier();
+    }
   }
 }
 
