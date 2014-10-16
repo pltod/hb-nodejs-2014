@@ -1,18 +1,25 @@
 {
   "name": "week1-task1",
   "version": "0.0.0",
-  "description": "using HN Firebase API with Express and other stuff",
+  "description": "Newsletter service using HN Firebase API with Express and Nodemailer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "subscriber": "node subscriber.js",
+    "subscriber-dev": "DEBUG=* node subscriber.js",
+    "notifier": "node notifier.js",
+    "notifier-dev": "DEBUG=* node notifier.js",
+    "scrapper": "node scrapper.js",    
+    "scrapper-dev": "DEBUG=* node scrapper.js"
   },
   "author": "Plamen Todorov",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.9.0",
+    "debug": "^2.1.0",
     "express": "^4.9.7",
     "node-persist": "0.0.2",
     "node-uuid": "^1.4.1",
+    "nodemailer-smtp-pool": "^0.1.8",
     "underscore": "^1.7.0"
   }
 }

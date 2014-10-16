@@ -3,7 +3,10 @@ var storage = require('node-persist');
 var dbUtils = require("./db-utils");
 var _ = require('underscore');
 
+
+
 module.exports = {
+  init: init,
   insertMany: insertMany,
   insertManyWithID: insertManyWithID,
   insert: insert,
@@ -11,10 +14,13 @@ module.exports = {
   findAll: findAll,
   rmAll: rmAll,
   rm: rm,
-  replace: replace
+  replace: replace,
+  persist: persist 
 }
 
-storage.initSync();
+function init() {
+  storage.initSync();
+}
 
 function insertMany(collection, initialValue) {
   storage.setItem(collection, initialValue);
@@ -30,6 +36,10 @@ function insertManyWithID(collection, initialValue) {
 
 function insert(collection, item) {
   var current = storage.getItem(collection);
+  if (current === undefined) {
+    storage.setItem(collection, []);
+    current = storage.getItem(collection);
+  }
   current.push(item);
   storage.setItem(collection, current); 
 }
@@ -37,12 +47,23 @@ function insert(collection, item) {
 function insertWithID(collection, item) {
   item.uid = dbUtils.uid();
   var current = storage.getItem(collection);
+  if (current === undefined) {
+    storage.setItem(collection, []);
+    current = storage.getItem(collection);
+  }
   current.push(item);
   storage.setItem(collection, current);
   return item.uid;
 }
 
-function findAll(collection) {
+function findAll(collection, isNumber) {
+  var items = storage.getItem(collection);
+  // Not good here :)
+  if (items === undefined && !isNumber) {
+    storage.setItem(collection, []);
+  } else if (items === undefined && isNumber) {
+    storage.setItem(collection, 0);
+  }
   return storage.getItem(collection);
 }
 
@@ -57,11 +78,17 @@ function rmAll(collection) {
 function rm(collection, uid) {
   debug(uid);
   var items = storage.getItem(collection);
-  debug(items);
-  var remaining = _.filter(items, function (item) {
-    return item.uid != uid;
-  })
-  debug(remaining);
-  storage.setItem(collection, remaining);
+  if (items !== undefined) {
+    debug(items);
+    var remaining = _.filter(items, function (item) {
+      return item.uid != uid;
+    })
+    debug(remaining);
+    storage.setItem(collection, remaining);
+  }
+}
+
+function persist() {
+  storage.persistSync();
 }
 

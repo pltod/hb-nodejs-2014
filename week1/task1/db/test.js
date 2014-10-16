@@ -2,6 +2,7 @@ var debug = require('debug')('db-test');
 var test = require("tape");
 var _ = require('underscore');
 var db = require("./db");
+db.init();
 
 var collection = 'subscribers.json';
 var collection2 = 'maxitem.json';

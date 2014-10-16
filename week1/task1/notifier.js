@@ -1,7 +1,12 @@
+var debug = require('debug')('notifier');
 var _ = require('underscore');
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+
+var mailer = require('./mailer');
+
 var db = require('./db');
 var articlesCollection = "articles.json";
 var subscribersCollection = "subscribers.json";
@@ -14,7 +19,14 @@ app.get('/', function (req, res) {
 });
 
 app.post('/newArticles', function (req, res) {
-  processSubscriptions();
+  debug('Request accepted!');
+  db.init();
+  var subscriptions = db.findAll(subscribersCollection);
+  var articles = db.findAll(articlesCollection);
+  //clean for the next time...these will be processed now
+  db.rmAll(articlesCollection);
+  debug(articles.length);  
+  processSubscriptions(subscriptions, articles);
   res.send('Subscriptions are going to be processed and mails will be sent shortly');
 });
 
@@ -22,35 +34,27 @@ app.listen(3001, function () {
   console.log('Notifier listens on localhost at port 3001');
 })
 
-function processSubscriptions() {
-  var articles = findAndCleanArticles();
-  var subscriptions = db.findAll(subscribersCollection);
-  
+function processSubscriptions(subscriptions, articles) {
   _.each(subscriptions, function (subscription) {
     var articlesToSend = [];
     var keywords = subscription.keywords;
     _.each(articles, function (article) {
-      var words = article.title.split(' ');
+      var words;
+      if (article.title !== undefined) {
+        // Sometimes titles are empty..deleted items for example
+        words = article.title.split(' '); 
+      }
+      
       var matches = _.intersection(keywords, words)
       if (!_.isEmpty(matches)) {
         articlesToSend.push(article);
       }
     });
     if (!_.isEmpty(articlesToSend)) {
-      console.log("Sending mail to: " + subscription.email + " / " + subscription.uid + " with articles: " + articlesToSend);
-      sendMail(articlesToSend, subscription.email);
+      debug(articlesToSend);
+      console.log(mailer.sendEmail(subscription.email, JSON.stringify(articlesToSend)))
     } else {
       console.log("No emails will be sent to: " + subscription.email + " / " + subscription.uid)
     }
   })
-}
-
-function findAndCleanArticles() {
-  var articles = db.findAll(articlesCollection);
-  db.rmAll(articlesCollection);
-  return articles;
-}
-
-function sendMail(articles, mail) {
-  //TODO Integrate nodemailer
 }

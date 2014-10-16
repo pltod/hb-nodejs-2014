@@ -1,9 +1,10 @@
-var uuid = require('node-uuid');
-var db = require('./db');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+
+var db = require('./db');
 var collection = "subscribers.json";
+db.init();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

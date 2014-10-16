@@ -1,11 +1,14 @@
-var db = require('./db');
+var debug = require('debug')('scrapper');
+var _ = require('underscore');
+
 var http = require('http');
 var https = require('https');
-var fs = require('fs');
-var _ = require('underscore');
+
+var db = require('./db');
+db.init();
 var articlesCollection = 'articles.json';
 var maxItemCollection = 'maxitem.json';
-var lastItemUsed = db.findAll(maxItemCollection);
+var lastItemUsed = db.findAll(maxItemCollection, true);
 var ids = [];
 
 runProcess();
@@ -24,7 +27,7 @@ function step1_getLatestMaxItem() {
 
       //Limit the items to 100
       if ((currentItem - lastItemUsed) > 100 ) {
-        ids = _.range(currentItem - 100, currentItem + 1);
+        ids = _.range(currentItem - 99, currentItem + 1);
       } else {
         ids = _.range(lastItemUsed + 1, currentItem + 1);
       }
@@ -36,37 +39,52 @@ function step1_getLatestMaxItem() {
 
 
 function step2_getAllArticles() {
-  _.each(ids, function (id, index) {
-    var isLast = (index == ids.length - 1);
-    var url = "https://hacker-news.firebaseio.com/v0/item/" + id + ".json?print=pretty";
-    https.get(url, function(res) {
-      res.on('data', function(data) {
-        var dataJSON;
-        try {
-          dataJSON = JSON.parse(data.toString())
-        } catch(e) {
-          //Some of the responses have incorrect JSON - skip these
-          return;
-        }
-        step3_ProcessFoundData(dataJSON, isLast);
+  var expectedRequests = ids.length;
+  debug('Expected Requests: ' + expectedRequests);
+  var finishedRequests = 0;
+  if (expectedRequests === 0) {
+    console.log('No new data at this moment');
+  } else {
+    _.each(ids, function (id) {
+      var url = "https://hacker-news.firebaseio.com/v0/item/" + id + ".json?print=pretty";
+      https.get(url, function(res) {
+        var payload = "";
+        res.on('data', function(data) {
+          payload = payload.concat(data);
+        });
+        
+        res.on('end', function () {
+          var dataJSON;
+          finishedRequests = finishedRequests + 1;
+          debug('Finished Requests: ' + finishedRequests);
+          debug('With URL: ' + url);
+          try {
+            debug(payload.toString());
+            dataJSON = JSON.parse(payload.toString())
+          } catch(e) {
+            //Some of the responses have incorrect JSON - skip these
+            return;
+          }
+          step3_ProcessFoundData(dataJSON, (expectedRequests === finishedRequests));
+        });
+        
+      }).on('error', function(e) {
+        console.error(e);
       });
-    }).on('error', function(e) {
-      console.error(e);
-    });
-  })
+    })
+  }
 }
 
 function step3_ProcessFoundData(data, isLast) {
   if (data.type === 'story') {
-    db.insert(articlesCollection, data)
-    if (isLast) {
-      wakeUpNotifier();
-    }
+    db.insert(articlesCollection, data);
+  }
+  if (isLast) {
+    wakeUpNotifier();
   }
 }
 
 function wakeUpNotifier() {
-  
   var options = {
     hostname: 'localhost',
     port: 3001,
@@ -74,16 +92,19 @@ function wakeUpNotifier() {
     path: '/newArticles'    
   };
   
-  var req = http.request(options, function(res) {
-    res.on('data', function (chunk) {
-      console.log(chunk.toString());
+  // Small delay to ensure that all is in articles.json
+  setTimeout(function () {
+    debug('Waking up notifier...');
+    var req = http.request(options, function(res) {
+      res.on('data', function (chunk) {
+        console.log(chunk.toString());
+      });
     });
-  });
   
-  req.on('error', function(e) {
-    console.log('Problem with request: ' + e.message);
-  });
+    req.on('error', function(e) {
+      console.log('Problem with request: ' + e.message);
+    });
   
-  req.end();    
-
+    req.end();    
+  }, 10000)
 }
