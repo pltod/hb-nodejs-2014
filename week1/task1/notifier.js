@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
 
 app.post('/newArticles', function (req, res) {
   processSubscriptions();
-  res.send('Subscriptions are processed and mails will be sent shortly');
+  res.send('Subscriptions are going to be processed and mails will be sent shortly');
 });
 
 app.listen(3001, function () {
@@ -23,7 +23,7 @@ app.listen(3001, function () {
 })
 
 function processSubscriptions() {
-  var articles = db.findAll(articlesCollection);
+  var articles = findAndCleanArticles();
   var subscriptions = db.findAll(subscribersCollection);
   
   _.each(subscriptions, function (subscription) {
@@ -37,10 +37,18 @@ function processSubscriptions() {
       }
     });
     if (!_.isEmpty(articlesToSend)) {
-      console.log("Sending mail to: " + subscription.email + " with articles: " + articlesToSend);
+      console.log("Sending mail to: " + subscription.email + " / " + subscription.uid + " with articles: " + articlesToSend);
       sendMail(articlesToSend, subscription.email);
+    } else {
+      console.log("No emails will be sent to: " + subscription.email + " / " + subscription.uid)
     }
   })
+}
+
+function findAndCleanArticles() {
+  var articles = db.findAll(articlesCollection);
+  db.rmAll(articlesCollection);
+  return articles;
 }
 
 function sendMail(articles, mail) {
