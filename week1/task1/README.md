@@ -1,8 +1,3 @@
-# Theory
-
-* express body parser
-
-* think about 'async while loop'
 
 
 # Task 

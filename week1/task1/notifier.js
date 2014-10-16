@@ -19,7 +19,7 @@ app.post('/newArticles', function (req, res) {
 });
 
 app.listen(3001, function () {
-  console.log('Server listens on localhost at port 3001');
+  console.log('Notifier listens on localhost at port 3001');
 })
 
 function processSubscriptions() {
