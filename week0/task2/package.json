@@ -1,16 +1,20 @@
 {
   "name": "chirp",
   "version": "0.0.0",
-  "description": "chirp api - tweeter like service for micro messaging",
+  "description": "chirp api - twitter like service for micro messaging",
   "main": "client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start-dev": "DEBUG=* node server.js"    
+    "start-dev": "DEBUG=* node server.js"
   },
   "author": "Plamen Todorov",
   "license": "MIT",
   "devDependencies": {
     "tape": "^3.0.0"
+  },
+  "dependencies": {
+    "debug": "^2.1.0",
+    "minimist": "^1.1.0"
   }
 }

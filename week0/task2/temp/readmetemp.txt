@@ -1,9 +1,3 @@
-# Task Summary
-
-
-
-# How to Run the Solution
-
 register, chirp create and read all are tested with curl
 
 * TODO
@@ -41,7 +35,4 @@ register, chirp create and read all are tested with curl
 > client core (which is API as well)
 
 > 1) client test and 2) client cmd that both use client core
-
-
-# Architecture Notes
 

@@ -1,6 +1,7 @@
+var debug = require('debug')("chirp-api-server");
 var http = require('http');
 var db = require('./db');
-
+var port = 8080;
 
 http.createServer(function (req, res) {
   var URL = req.url;
@@ -29,19 +30,28 @@ http.createServer(function (req, res) {
     } else if (isGET(METHOD) && URL === "/my_chirps") {
       res.end(JSON.stringify(getMyChirps()));
     } else if (isPOST(METHOD) && URL === "/chirp") {
-      res.end(postChirp(payload));
+      debug('API accept create chirp call with data: ');
+      debug(payload);
+      var p = JSON.parse(payload)
+      res.end(db.insertChirp(p.key, p.chirpText));
     } else if (isPOST(METHOD) && URL === "/register") {
-      res.end(register(payload));
+      debug('API accept register call with data: ');
+      debug(payload);
+      res.end(db.insertUser(JSON.parse(payload)));
     } else if (isDELETE(METHOD) && URL === "/chirp") {
       res.end(deleteChirp())
     } else if (isGET(METHOD) && URL === "/") {
-      res.end("WELCOME TO CHIRP!");
+      res.end("WELCOME TO CHIRP API!");
     } else {
-      res.end("PATH NOT FOUND!");
+      res.end("NO API ENDPOINT HERE!");
     }
   });
 
-}).listen(8080);
+}).listen(port, function (err) {
+  if (err) throw err
+  
+  console.log('Chirp API live at: ' + port);
+});
 
 function getMyChirps() {
   return "MY CHIRPS";  
@@ -59,10 +69,6 @@ function getAllChirps() {
 
 function getAllUsers() {
   return db.findAllUsers();
-}
-
-function register(payload) {
-  return db.insertUser(JSON.parse(payload));
 }
 
 function getUserChirps() {
