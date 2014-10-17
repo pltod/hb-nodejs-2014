@@ -87,26 +87,6 @@ function getOutputFileName() {
   }
 }
 
-// function getOutputFileName() {
-//   var ifn = getInputFileName();
-//   if (file.indexOf('.') == -1) {
-//     return (extension === 'ini') ? ifn.concat(".json") : ifn.concat(".ini");
-//   } else {
-//     return (extension === 'ini') ? ifn.replace(pIni, ".json") : ifn.replace(pJson, ".ini");
-//   }
-// }
-// 
-// function getInputFileName() {
-//   if (file.indexOf('/') == -1) {
-//     // name only no paths
-//     return file
-//   } else {
-//     // remote or with path
-//     pathParts = file.split('/')
-//     return pathParts[pathParts.length - 1]
-//   }
-// }
-
 function printHelp() {
   console.log(fs.readFileSync('usage.txt', 'utf-8'));
 }
