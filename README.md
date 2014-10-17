@@ -13,7 +13,7 @@ This repo contains all the code written by me ([@pltod](https://twitter.com/plto
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-# Repository Scafolding
+# Repository Scaffolding
 
 The repo structure is as follows:
 
