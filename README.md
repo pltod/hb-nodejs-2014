@@ -5,7 +5,7 @@ This repo contains all the code written by me ([@pltod](https://twitter.com/plto
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
-- [Repository Scafolding](#repository-scafolding)
+- [Repository Scaffolding](#repository-scaffolding)
 - [Course Assignments And Solutions](#course-assignments-and-solutions)
 - [Application Process Assignments And Solutions](#application-process-assignments-and-solutions)
 - [License](#license)
