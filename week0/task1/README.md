@@ -9,22 +9,17 @@ Task specification:
 
 # How To Run the Solution
 
+* npm i to install dependencies
 
-Two ways:
-
-* In task 1 folder write
-
-> ```converter.js [file location]```
-
-or 
-
-* Register converter as terminal command with ```npm link``` and run it from any location with:
-
-> ```converter [file location]```
+* run ```node parse -h``` to see the usage
 
 
 # Architecture Notes
 
-TODO: Brief explanation of the solution
+* separate micro modules are used for each reusable function 
+
+* having some special symbols like '.' and '/' in the file names is not supported
+
+
 
 

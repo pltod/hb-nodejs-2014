@@ -1,18 +1,19 @@
 {
-  "name": "converter",
+  "name": "parse",
   "version": "0.0.1",
-  "description": "converts local or networked files from ini to json and vice versa",
-  "bin": {
-    "converter": "converter.js"
-  },
+  "description": "parse local or networked files from ini to json and vice versa",
   "keywords": [
     "ini",
     "json",
     "http",
-    "converter"
+    "parser"
   ],
   "author": {
     "name": "Plamen Todorov"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.1.0",
+    "minimist": "^1.1.0"
+  }
 }

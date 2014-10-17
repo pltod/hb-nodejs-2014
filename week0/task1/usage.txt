@@ -1,0 +1,16 @@
+usage:
+
+  node parse {-h}
+    Prints this help
+    
+  node parse [FILE NAME WITH EXTENSION INI OR JSON]
+    Converts local file from ini to json or vice versa
+
+  node parse [FILE NAME WITHOUT EXTENSION] {--type EXTENSION}
+    Converts local file from ini to json or vice versa
+
+  node parse [HTTP/S LOCATION TO FILE WITH EXTENSION INI OR JSON]
+    Obtains and converts remote file from ini to json or vice versa
+
+  node parse [HTTP/S LOCATION TO FILE WITHOUT EXTENSION] {--type EXTENSION}
+    Obtains and converts remote file from ini to json or vice versa
