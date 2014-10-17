@@ -1,17 +1,13 @@
 var fs = require('fs');
 var file = {};
 
-// TODO refactor these
-var sname;
-var pname;
-var pvalue;
-
 module.exports = function (data, fileName) {
   transform(data);
   return JSON.stringify(file,null,'\t');
 }
 
 function transform(data) {
+  var sname;
   var sections = data.split('\n');
   sections.forEach(function (item) {
     if (!ignoreLine(item)) {
