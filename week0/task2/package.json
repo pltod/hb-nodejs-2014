@@ -1,7 +1,7 @@
 {
-  "name": "task2",
+  "name": "chirp",
   "version": "0.0.0",
-  "description": "chirp api",
+  "description": "chirp api - tweeter like service for micro messaging",
   "main": "client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
