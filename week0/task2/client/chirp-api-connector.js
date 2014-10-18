@@ -18,7 +18,6 @@ exports.get = function (url, callback) {
 
 exports.post = function (path, userData, callback) {
 
-  // TODO construct it from config  
   var options = {
     hostname: 'localhost',
     port: 8080,

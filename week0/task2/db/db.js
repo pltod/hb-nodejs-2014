@@ -31,6 +31,12 @@ function reinit(data) {
 }
 
 function insertUser(user) {
+
+  if (isUserNameExists(user.user)) {
+    debug('dsadasdsa')
+    throw new Error('User name exist!');
+  }
+  debug('create')
   user.userId = dbUtils.uid();
   user.chirps = [];
   db.push(user);
@@ -118,8 +124,16 @@ function findUserById(userId) {
   return _.findWhere(db, {"userId": userId})  
 }
 
+function findUserByName(user) {
+  return _.findWhere(db, {"user": user})  
+}
+
 function isUserExists(user, userId) {
   return findUser(user, userId) ? true : false
+}
+
+function isUserNameExists(user) {
+  return findUserByName(user) ? true : false
 }
 
 

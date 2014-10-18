@@ -17,6 +17,7 @@ if (args.help || args.h) {
 (commands.indexOf('register') === 1) && register();
 (commands.indexOf('create') === 1) && createChirp();
 (commands.indexOf('getall') === 1) && getAllChirps();
+(commands.indexOf('getself') === 1) && getMyChirps();
 
 (commands.indexOf('mygetallusers') === 1) && getAllUsers();
 
@@ -55,13 +56,26 @@ function createChirp() {
   }
 }
 
+function getMyChirps() {
+  debug('Getting my chirps...')
+  var url = configContent.api_url + '/my_chirps?user='+configContent.user+'&key='+configContent.key
+  debug(url);
+  if (isValidConfig()) {
+    request.get(url, function (myChirps) {
+      console.log(myChirps)
+    })      
+  }
+}
+
 function getAllChirps() {
+  debug('Getting all chirps...')  
   request.get(configContent.api_url + '/all_chirps', function (allChirps) {
     console.log(allChirps)
   })      
 }
 
 function getAllUsers() {
+  debug('Getting all users...')  
   request.get(configContent.api_url + '/all_users', function (allUsers) {
     console.log(allUsers)
   })      
