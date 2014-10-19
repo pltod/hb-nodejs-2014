@@ -10,10 +10,22 @@ Full specification:
 
 # How to Run the Solution
 
-TODO 
+* npm i
+
+* npm start (or npm run start-dev to see verbose output)
+
+* in client dir run node chirp_client -h to see its usage
+
+> use DEBUG=* node chirp-client [COMMAND] for verbose output
 
 
 # Architecture Notes
 
-TODO
+* db layer is designed as separate module
+
+* it has test suite that can be runned as follows:
+
+> go in db folder and run ```npm i```
+
+> run ```npm test```
 
