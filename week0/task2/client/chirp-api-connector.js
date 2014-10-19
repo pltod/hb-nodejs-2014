@@ -1,3 +1,4 @@
+var debug = require('debug')('chirp-api-connector');
 var http = require('http');
 
 exports.get = function (url, callback) { 
@@ -8,7 +9,7 @@ exports.get = function (url, callback) {
     });
     
     res.on('end', function () {
-      callback(payload.toString());
+      callback(res.statusCode, payload.toString());
     })
   })
   .on('error', function(e) {
@@ -25,9 +26,25 @@ exports.post = function (path, userData, callback) {
     path: path
   };
   
+  handleRequest(options, userData, callback);
+}
+
+exports.delete = function (path, userData, callback) {
+
+  var options = {
+    hostname: 'localhost',
+    port: 8080,
+    method: 'DELETE',
+    path: path
+  };
+  debug(userData);
+  handleRequest(options, userData, callback);
+}
+
+function handleRequest(options, userData, callback) {
   var req = http.request(options, function(res) {
     res.on('data', function (chunk) {
-      callback(chunk.toString());
+      callback(res.statusCode, chunk.toString());
     });
   });
   

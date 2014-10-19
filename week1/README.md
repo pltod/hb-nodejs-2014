@@ -1,14 +1,29 @@
 # Lessons Learned
 
+## Theory
+
+* callback hell
+
+* promises
+
+* event emitters
+
+
+## Libs, Tools, Frameworks
+
 * express 
 
 * express body parser
 
-* 'async while loop' without promises and async library
-
 * nodemailer
 
 * persistence with node-persist
+
+* async
+
+* Q
+
+## APIs
 
 * HN Firebase API 
 

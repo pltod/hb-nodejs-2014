@@ -1,4 +1,5 @@
-var debug = require('debug')('parse');
+var debug = require('debug')('chirp-api-client');
+var log = console.log;
 var fs = require('fs');
 
 var request = require("./chirp-api-connector");
@@ -18,8 +19,8 @@ if (args.help || args.h) {
 (commands.indexOf('create') === 1) && createChirp();
 (commands.indexOf('getall') === 1) && getAllChirps();
 (commands.indexOf('getself') === 1) && getMyChirps();
-
-(commands.indexOf('mygetallusers') === 1) && getAllUsers();
+(commands.indexOf('delete') === 1) && deleteChirp();
+(commands.indexOf('getallusers') === 1) && getAllUsers();
 
 
 function register() {
@@ -27,13 +28,31 @@ function register() {
   var data = {};
   if(args.user) {
     data.user = args.user;
-    request.post('/register', data, function (key) {
-      debug('Registered user with ID: ' + key);
-      updateConfig(args.user, key)
+    request.post('/register', data, function (status, key) {
+      (status === 200) ? (function () {log('User registered with ID: ' + key); updateConfig(args.user, key)})() : log(key)
     })
   } else {
     console.log('You must specify user name. See help: ');
     printHelp();
+  }
+}
+
+function deleteChirp() {
+  debug('Deleting chirp...')
+  var data = {
+    user: configContent.user,
+    key: configContent.key,
+    chirpId: args.chirpId  
+  };
+  if (isValidConfig()) {
+    if(args.chirpId) {
+      request.delete('/chirp', data, function (status, key) {
+        (status === 200) ? log('Deleted chirp with ID: ' + key) : log(key)
+      })      
+    } else {
+      console.log('You must specify chirp id. See help: ');
+      printHelp();      
+    }
   }
 }
 
@@ -46,8 +65,8 @@ function createChirp() {
   };
   if (isValidConfig()) {
     if(args.message) {
-      request.post('/chirp', data, function (key) {
-        debug('Registered chirp with ID: ' + key)
+      request.post('/chirp', data, function (status, key) {
+        (status === 200) ? log('Registered chirp with ID: ' + key) : log(key)
       })      
     } else {
       console.log('You must specify message. See help: ');
@@ -61,23 +80,23 @@ function getMyChirps() {
   var url = configContent.api_url + '/my_chirps?user='+configContent.user+'&key='+configContent.key
   debug(url);
   if (isValidConfig()) {
-    request.get(url, function (myChirps) {
-      console.log(myChirps)
+    request.get(url, function (status, myChirps) {
+      (status === 200) ? log(myChirps) : log(key)      
     })      
   }
 }
 
 function getAllChirps() {
   debug('Getting all chirps...')  
-  request.get(configContent.api_url + '/all_chirps', function (allChirps) {
-    console.log(allChirps)
+  request.get(configContent.api_url + '/all_chirps', function (status, allChirps) {
+    (status === 200) ? log(allChirps) : log(key)    
   })      
 }
 
 function getAllUsers() {
   debug('Getting all users...')  
-  request.get(configContent.api_url + '/all_users', function (allUsers) {
-    console.log(allUsers)
+  request.get(configContent.api_url + '/all_users', function (status, allUsers) {
+    (status === 200) ? log(allUsers) : log(key)
   })      
 }
 
@@ -86,12 +105,7 @@ function printHelp() {
 }
 
 function isValidConfig() {
-  if (configContent.key == undefined || configContent.user == undefined) {
-    console.log('Please register user first!');
-    return false;
-  } else {
-    return true;    
-  }
+  return (configContent.key == undefined || configContent.user == undefined) ? (function () { console.log('Please register user first!'); return false})() : true;
 }
 
 function updateConfig(user, key) {

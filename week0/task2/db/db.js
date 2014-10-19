@@ -33,10 +33,8 @@ function reinit(data) {
 function insertUser(user) {
 
   if (isUserNameExists(user.user)) {
-    debug('dsadasdsa')
     throw new Error('User name exist!');
   }
-  debug('create')
   user.userId = dbUtils.uid();
   user.chirps = [];
   db.push(user);
@@ -113,6 +111,8 @@ function deleteChirp(userId, chirpId) {
   debug(userForUpdate.chirps);  
   
   db.push(userForUpdate);
+  
+  return chirpId;
 }
 
 
