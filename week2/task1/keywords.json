@@ -1,0 +1,12 @@
+[
+  {"keyword": "JavaScript", "count": 10000}, 
+  {"keyword": "Python", "count": 8000}, 
+  {"keyword": "Apple", "count": 1218000},
+  {"keyword": "Android", "count": 12180},
+  {"keyword": "Startup", "count": 18000},
+  {"keyword": "BMW", "count": 121800},
+  {"keyword": "Lego", "count": 121},
+  {"keyword": "Movies", "count": 10},
+  {"keyword": "Ideas", "count": 118000},
+  {"keyword": "React", "count": 21218000}
+]

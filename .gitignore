@@ -29,3 +29,6 @@ node_modules
 
 # node-persist
 persist
+
+# bower
+bower_components

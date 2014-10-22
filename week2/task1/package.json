@@ -1,0 +1,15 @@
+{
+  "name": "task1",
+  "version": "0.0.0",
+  "description": "playing with mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Plamen Todorov",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.1.0",
+    "mongodb": "^1.4.19"
+  }
+}
