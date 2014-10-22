@@ -21,11 +21,14 @@ Full specification:
 
 # Architecture Notes
 
-* db layer is designed as separate module
-
-* it has test suite that can be runned as follows:
+* db layer is designed as separate module. It has test suite that can be runned as follows:
 
 > go in db folder and run ```npm i```
 
 > run ```npm test```
+
+
+* Connection logic to server is encapsulated inside client/client-api-connector.js
+
+> in such way it is reused in command line program and in a test suite
 
