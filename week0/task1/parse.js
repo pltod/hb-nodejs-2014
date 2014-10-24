@@ -1,5 +1,5 @@
 var debug = require('debug')('parse');
-var fs = require('fs');
+var read = require('../../shared/readers/reader-file');
 var args = require("minimist")(process.argv.slice(2));
 var file = args._[0];
 var pRemoteHttp=/^http:/;
@@ -41,7 +41,7 @@ function run() {
   var parse = getParser();
   var write = require('./modules/writer-file');
   
-  read(file, function (data) {
+  read.async(file, function (data) {
     write(getOutputFileName(), parse(data));
   })
   
@@ -60,15 +60,15 @@ function getExtension() {
 // Gets appropriate reader according to the file location and protocol if remote file
 function getReader() {
   if (remoteFile) {
-    return (null === file.match(pRemoteHttp)) ? require('./modules/reader-https') : require('./modules/reader-http')
+    return (null === file.match(pRemoteHttp)) ? require('../../shared/readers/reader-https') : require('../../shared/readers/reader-http')
   } else {
-    return require('./modules/reader-file');
+    return read;
   }
 }
 
 // Get appropriate parser according to the file type
 function getParser() {
-  return extension === 'ini'? require('../../shared/ini-to-json') : require('./modules/json-to-ini')
+  return extension === 'ini'? require('../../shared/transformers/ini-to-json') : require('../../shared/transformers/json-to-ini')
 }
 
 function getOutputFileName() {
@@ -88,5 +88,5 @@ function getOutputFileName() {
 }
 
 function printHelp() {
-  console.log(fs.readFileSync('usage.txt', 'utf-8'));
+  console.log(read.sync('usage.txt'));
 }
