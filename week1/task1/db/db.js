@@ -31,9 +31,9 @@ function insertMany(collection, data) {
   storage.setItem(collection, data);
 }
 
-function insertOne(collection, item) {
+function insertOne(collection, item, needTag) {
   var data = storage.getItem(collection);
-  tagItem(item);
+  needTag && tagItem(item);
   data.push(item);
   storage.setItem(collection, data);
   return item.uid;

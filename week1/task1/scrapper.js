@@ -3,9 +3,9 @@ var _ = require('underscore');
 
 var http = require('http');
 var https = require('https');
+var collection = 'articles.json';
+var db = require('./db')([collection]);
 
-var db = require('./db')();
-var articlesCollection = 'articles.json';
 var maxItemCollection = 'maxitem.json';
 var lastItemUsed = db.findAll(maxItemCollection, true);
 var ids = [];
@@ -75,8 +75,9 @@ function step2_getAllArticles() {
 }
 
 function step3_ProcessFoundData(data, isLast) {
+  // TODO check the type field
   if (data.type === 'story') {
-    db.insert(articlesCollection, data);
+    db.insertOne(collection, data, false);
   }
   if (isLast) {
     wakeUpNotifier();

@@ -9,9 +9,6 @@ var mailer = require('./mailer');
 var collections = ["articles.json", "subscribers.json"];
 var db = require('./db')(collections);
 
-//var articlesCollection = "articles.json";
-//var subscribersCollection = "subscribers.json";
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 

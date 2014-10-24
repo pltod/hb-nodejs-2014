@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/subscribe', function (req, res) {
-  var id = db.insertWithID(collection, req.body);
+  var id = db.insertOne(collection, req.body, true);
   var result = {
     "email": req.body.email,
     "subscriberId": id
@@ -22,7 +22,7 @@ app.post('/subscribe', function (req, res) {
 });
 
 app.post('/unsubscribe', function (req, res) {
-  db.rm(collection, req.body.subscriberId);
+  db.rmOne(collection, req.body.subscriberId);
   res.send(req.body.subscriberId + ' has been removed!');
 });
 
