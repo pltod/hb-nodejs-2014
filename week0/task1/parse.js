@@ -68,7 +68,7 @@ function getReader() {
 
 // Get appropriate parser according to the file type
 function getParser() {
-  return extension === 'ini'? require('./modules/ini-to-json') : require('./modules/json-to-ini')
+  return extension === 'ini'? require('../../shared/ini-to-json') : require('./modules/json-to-ini')
 }
 
 function getOutputFileName() {
