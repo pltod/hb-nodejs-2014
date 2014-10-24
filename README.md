@@ -1,5 +1,4 @@
-This repo contains all the code written by me ([@pltod](https://twitter.com/pltod)) during the NodeJS 2014 course offered by [@HackBulgaria](https://twitter.com/hackbulgaria).
-
+This repo contains all the code written by me - [@pltod](https://twitter.com/pltod) - during the NodeJS 2014 course offered by [@HackBulgaria](https://twitter.com/hackbulgaria).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

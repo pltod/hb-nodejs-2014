@@ -6,10 +6,11 @@ var bodyParser = require('body-parser');
 var app = express();
 
 var mailer = require('./mailer');
+var collections = ["articles.json", "subscribers.json"];
+var db = require('./db')(collections);
 
-var db = require('./db');
-var articlesCollection = "articles.json";
-var subscribersCollection = "subscribers.json";
+//var articlesCollection = "articles.json";
+//var subscribersCollection = "subscribers.json";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,11 +21,11 @@ app.get('/', function (req, res) {
 
 app.post('/newArticles', function (req, res) {
   debug('Request accepted!');
-  db.init();
-  var subscriptions = db.findAll(subscribersCollection);
-  var articles = db.findAll(articlesCollection);
+  // db.init();
+  var subscriptions = db.findAll(collections[1]);
+  var articles = db.findAll(collections[0]);
   //clean for the next time...these will be processed now
-  db.rmAll(articlesCollection);
+  db.rmAll(collections[0]);
   debug(articles.length);  
   processSubscriptions(subscriptions, articles);
   res.send('Subscriptions are going to be processed and mails will be sent shortly');

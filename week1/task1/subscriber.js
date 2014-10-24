@@ -1,10 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-
-var db = require('./db');
 var collection = "subscribers.json";
-db.init();
+var db = require('./db')([collection]);
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

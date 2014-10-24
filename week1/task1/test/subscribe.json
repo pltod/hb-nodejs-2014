@@ -3,5 +3,6 @@
   "keywords": [
     "Dropbox",
     "Cool"
-  ]
+  ],
+  "type": ["story", "comment"]
 }

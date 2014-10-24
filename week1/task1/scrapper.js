@@ -4,8 +4,7 @@ var _ = require('underscore');
 var http = require('http');
 var https = require('https');
 
-var db = require('./db');
-db.init();
+var db = require('./db')();
 var articlesCollection = 'articles.json';
 var maxItemCollection = 'maxitem.json';
 var lastItemUsed = db.findAll(maxItemCollection, true);
