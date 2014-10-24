@@ -1,13 +1,14 @@
 var debug = require('debug')('scrapper');
 var _ = require('underscore');
-
+var read = require('../../shared/readers/reader-file');
+var write = require('../../shared/writers/writer-file');
 var http = require('http');
 var https = require('https');
 var collection = 'articles.json';
 var db = require('./db')([collection]);
 
-var maxItemCollection = 'maxitem.json';
-var lastItemUsed = db.findAll(maxItemCollection, true);
+var maxItemFile = 'persist/maxitem.txt';
+var lastItemUsed = read.sync(maxItemFile);
 var ids = [];
 
 runProcess();
@@ -30,7 +31,7 @@ function step1_getLatestMaxItem() {
       } else {
         ids = _.range(lastItemUsed + 1, currentItem + 1);
       }
-      db.replace(maxItemCollection, currentItem);
+      write(maxItemFile, currentItem);
       step2_getAllArticles();
     });
   }).on('error', function(e) { console.error(e) })
