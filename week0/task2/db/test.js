@@ -1,7 +1,7 @@
 var debug = require('debug')('db-test');
 var test = require("tape");
 var _ = require('underscore');
-var dbUtils = require("./db-utils");
+var dbUtils = require("../../../shared/utils/db-utils");
 var db = require("./db");
 
 var testUsers = [
