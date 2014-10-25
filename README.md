@@ -25,7 +25,7 @@ The repo structure is as follows:
 * weekX/README.md covers some of the lessons learned during the week
 
 
-# Course Assignments And Solutions
+# Solutions to Course Assignments 
 
 Course materials and task assignments are here:
 
@@ -52,7 +52,7 @@ The solutions to tasks done during the course are in the corresponding task fold
 More to come...
 
 
-# Application Process Assignments And Solutions
+# Solutions to Admission Assignments
 
 Assignments specifications:
 
