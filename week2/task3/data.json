@@ -1,0 +1,17 @@
+[
+  {
+      "name": "Location1",
+      "loc" : { "type": "Point", "coordinates": [ 24.63134765625, 42.05745022024682 ] },
+      "tags": [
+          "restaurant",
+          "shop"
+      ]
+  },
+  {
+      "name": "Location2",
+      "loc" : { "type": "Point", "coordinates": [ 25.8837890625, 42.33418438593941 ] },      
+      "tags": [
+          "cafe"
+      ]
+  }  
+]

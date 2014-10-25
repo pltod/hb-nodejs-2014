@@ -16,4 +16,9 @@
 
 * express middleware with headers for Access-Control-Allow-Origin
 
+* geo-json
+
+
+
+
 
