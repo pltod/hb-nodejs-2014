@@ -38,7 +38,15 @@ The solutions to tasks done during the course are in the corresponding task fold
 
 [Task 2, Twitter like service for registering messages per users powered by Express](https://github.com/pltod/hb-nodejs-2014/tree/master/week0/task2)
 
-[Task 3, Newsletter service using HN Firebase API with Express and Nodemailer](https://github.com/pltod/hb-nodejs-2014/tree/master/week1/task1)
+[Task 3, Newsletter and statistic services using HN Firebase API with Express and Nodemailer](https://github.com/pltod/hb-nodejs-2014/tree/master/week1/task2)
+
+[Task 4, Simple insert utility for MongoDB](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task1)
+
+> not directly part of this task but created alongside with it is [NodeJS command line utility for MongoDB starting, collection/db initialisation/reinitsialisation with data stored in JSON files](https://github.com/pltod/lab-mongodb)
+
+[Task 5, Server statistical data stored in MongoDB and visualise it in web browser](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task2)
+
+[Task 6, Geolocation services - saving locations and finding locations - with MongoDB and Express](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task3)
 
 
 More to come...
@@ -53,20 +61,14 @@ Assignments specifications:
 
 Links to my solutions are as follows:
 
-* Beers and fries
+[Task 1, Beers and fries algorithm https://github.com/pltod/hb-nodejs-2014-one]
 
-> https://github.com/pltod/hb-nodejs-2014-one
+[Task 2, Web application for drawing triangles on HTML5 Canvas and features for storing and opening of these drawings](https://github.com/pltod/hb-nodejs-2014-two)
 
-* Drawing triangles on canvas
-
-> https://github.com/pltod/hb-nodejs-2014-two
-
-> Demo: http://pltod.github.io/blog/demos/canvas/
+[Demo](http://pltod.github.io/blog/demos/canvas/)
 
 
-* Mocha Test Suite in Express Node.js App
-
-> https://github.com/pltod/hb-nodejs-2014-three
+[Task 3, CRUD expressjs app with mocha test suite](https://github.com/pltod/hb-nodejs-2014-three)
 
 
 # License

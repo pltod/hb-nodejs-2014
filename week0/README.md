@@ -1,4 +1,4 @@
-# Lessons Learned
+# Week 0
 
 * javascript language specifics
 
