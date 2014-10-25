@@ -44,7 +44,7 @@ The solutions to tasks done during the course are in the corresponding task fold
 
 > more advanced tool created alongside with this task is [NodeJS command line utility for MongoDB starting, collection/db initialisation/reinitialisation with data stored in JSON files](https://github.com/pltod/lab-mongodb)
 
-[Task 5, Server statistical data stored in MongoDB and visualise it in web browser](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task2)
+[Task 5, Serve statistical data stored in MongoDB and visualise it in web browser](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task2)
 
 [Task 6, Geolocation services - saving locations and finding locations - with MongoDB and Express](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task3)
 
@@ -61,11 +61,11 @@ Assignments specifications:
 
 Links to my solutions are as follows:
 
-[Task 1, Beers and fries algorithm https://github.com/pltod/hb-nodejs-2014-one]
+[Task 1, Beers and fries algorithm](https://github.com/pltod/hb-nodejs-2014-one)
 
 [Task 2, Web application for drawing triangles on HTML5 Canvas and features for storing and opening of these drawings](https://github.com/pltod/hb-nodejs-2014-two)
 
-[Demo](http://pltod.github.io/blog/demos/canvas/)
+> [Demo](http://pltod.github.io/blog/demos/canvas/)
 
 
 [Task 3, CRUD expressjs app with mocha test suite](https://github.com/pltod/hb-nodejs-2014-three)
