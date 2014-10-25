@@ -42,7 +42,7 @@ The solutions to tasks done during the course are in the corresponding task fold
 
 [Task 4, Simple insert utility for MongoDB](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task1)
 
-> not directly part of this task but created alongside with it is [NodeJS command line utility for MongoDB starting, collection/db initialisation/reinitsialisation with data stored in JSON files](https://github.com/pltod/lab-mongodb)
+> more advanced tool created alongside with this task is [NodeJS command line utility for MongoDB starting, collection/db initialisation/reinitialisation with data stored in JSON files](https://github.com/pltod/lab-mongodb)
 
 [Task 5, Server statistical data stored in MongoDB and visualise it in web browser](https://github.com/pltod/hb-nodejs-2014/tree/master/week2/task2)
 
