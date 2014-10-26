@@ -24,12 +24,12 @@ Hacker News Firebase API:
 
 when server is started go to test folder and do
 
-> adding subscriptions with: curl -H "Content-Type: application/json" --data @subscribe.json http://localhost:3000/subscribe . The data will be persisted in persist/subscribers.json
+> adding subscriptions with: curl -H "Content-Type: application/json" --data @subscribe.json http://localhost:8000/subscribe . The data will be persisted in persist/subscribers.json
 
-> removing subscriptions with: curl -H "Content-Type: application/json" --data @unsubscribe.json http://localhost:3000/unsubscribe . remove.json must contain existing subscription key in order to reflect subscribers.json
+> removing subscriptions with: curl -H "Content-Type: application/json" --data @unsubscribe.json http://localhost:8000/unsubscribe . remove.json must contain existing subscription key in order to reflect subscribers.json
 
 
-http://localhost:3000/listSubscribers in the browser list all available subscriptions
+http://localhost:8000/listSubscribers in the browser list all available subscriptions
 
 
 ## Notifier Module
