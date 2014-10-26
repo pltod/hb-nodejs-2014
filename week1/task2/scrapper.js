@@ -6,7 +6,7 @@ var http = require('http');
 var https = require('https');
 var collection = 'articles.json';
 var db = require('../../shared/db/facade-node-persist')([collection]);
-var api = require('./api');
+var api = require('../../shared/api/facade-firebase');
 
 var maxItemFile = 'persist/maxitem.txt';
 var lastItemUsed = parseInt(read.sync(maxItemFile));

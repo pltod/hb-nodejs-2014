@@ -8,7 +8,7 @@ var app = express();
 var mailer = require('../../shared/mailer');
 var collections = ["articles.json", "subscribers.json"];
 var db = require('../../shared/db/facade-node-persist')([collection]);
-var api = require('./api')
+var api = require('../../shared/api/facade-firebase');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
