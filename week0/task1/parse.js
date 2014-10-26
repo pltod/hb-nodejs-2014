@@ -1,5 +1,5 @@
 var debug = require('debug')('parse');
-var read = require('../../shared/readers/reader-file');
+var read = require('../../shared/readers/reader-local');
 var args = require("minimist")(process.argv.slice(2));
 var file = args._[0];
 var pRemoteHttp=/^http:/;

@@ -1,6 +1,6 @@
 var debug = require('debug')('scrapper');
 var _ = require('underscore');
-var read = require('../../shared/readers/reader-file');
+var read = require('../../shared/readers/reader-local');
 var write = require('../../shared/writers/writer-file');
 var http = require('http');
 var https = require('https');
