@@ -1,13 +1,18 @@
 var http = require('http');
 var https = require('https');
 
-module.exports = function (url, callback) {
-  return {
-    http: read(http, url, callback),
-    https: read(https, url, callback)
-  }
+module.exports = {
+  http: readHttp,
+  https: readHttps
 }
 
+function readHttp(url, callback) {
+  read(http, url, callback)
+}
+
+function readHttps(url, callback) {
+  read(https, url, callback)
+}
 
 function read(protocol, url, callback) { 
   protocol.get(url, function(res) {
@@ -17,10 +22,10 @@ function read(protocol, url, callback) {
     });
     
     res.on('end', function () {
-      callback(payload.toString());
+      callback(null, payload.toString());
     })
   })
   .on('error', function(e) {
-    console.log("Got error: " + e.message);
+    callback(e, null);
   });  
 }

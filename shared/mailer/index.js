@@ -3,9 +3,9 @@ var fs = require('fs');
 var nodemailer = require('nodemailer');
 var smtpPool = require('nodemailer-smtp-pool');
 
-var emailService = require('./config').emailService;
-var senderEmail = require('./config').senderEmail;
-var senderPass = require('./config').senderPass;
+var emailService = require('../../../config').emailService;
+var senderEmail = require('../../../config').senderEmail;
+var senderPass = require('../../../config').senderPass;
 
 var options = {
   service: emailService,
