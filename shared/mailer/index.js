@@ -1,5 +1,5 @@
 var debug = require('debug')('mailer');
-
+var fs = require('fs');
 var nodemailer = require('nodemailer');
 var smtpPool = require('nodemailer-smtp-pool');
 
@@ -20,20 +20,15 @@ var options = {
 // create reusable transporter object using SMTP transport
 var transporter = nodemailer.createTransport(smtpPool(options));
 
-var mailOptions = {
-  from: senderEmail,
-  subject: 'HN Newsletter'
-  // to: 'email',
-  // text: data
-  // html: '<b>Hello world ✔</b>'
-};
-
-
 module.exports = {
-  sendEmail: function (to, data) {
-    mailOptions.to = to;
-    mailOptions.text = data;
-    debug(senderEmail);
+  sendEmail: function (sender, subject, to, data) {
+    var mailOptions = {
+      from: sender,
+      subject: subject,
+      to: to,
+      // text: data
+      html: data
+    };
     debug(mailOptions);    
     transporter.sendMail(mailOptions, function(error, info){
       if(error){
@@ -43,4 +38,5 @@ module.exports = {
       }
     });    
   }
+  
 }

@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/pltod/hb-nodejs-2014",
   "dependencies": {
+    "debug": "^2.1.0",
     "moment": "^2.8.3",
-    "node-uuid": "^1.4.1"
+    "node-uuid": "^1.4.1",
+    "nodemailer": "^1.3.0",
+    "nodemailer-smtp-pool": "^0.1.8"
   }
 }

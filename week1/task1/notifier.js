@@ -5,7 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
-var mailer = require('./mailer');
+var mailer = require('../../shared/mailer');
 var collections = ["articles.json", "subscribers.json"];
 var db = require('./db')(collections);
 

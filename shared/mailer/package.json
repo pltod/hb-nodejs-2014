@@ -4,7 +4,7 @@
   "description": "Mail sender",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "author": "Plamen Todorov",
   "license": "MIT",
