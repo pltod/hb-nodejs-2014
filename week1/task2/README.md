@@ -1,6 +1,6 @@
 # General TODOs
 
-* middleware thing
+* middleware thing ( shared component ??? )
 
 * refactoring all 
 
@@ -14,19 +14,17 @@
 
 # Task Summary
 
-* DONE on subscribe send email via mailer - DONE
+* 1. notifier must send only to confirmed = true
 
-* DONE when user confirm subscription -> confirmed to true - DONE
+* 2. notifier must check for story or comment subscription and if comment take parent story
 
-* notifier must send only to confirmed = true
+* 3. make tokenize service with https://github.com/NaturalNode/natural
 
-* notifier must check for story or comment subscription
+> it will be used for comparing with title tokes and subscription tags
 
-> find the parent story so it is also included in the mail
+> it will be used for statistic service
 
-* DONE scrapper to be changed so it saves type = comment in the articles.json - DONE
-
-* statistic service
+* 4. statistic service
 
 > last 10000
 
@@ -61,16 +59,12 @@ in this way we are going to consume it easy in the next task and do visualisatio
 
 
 
+* DONE on subscribe send email via mailer - DONE
+
+* DONE when user confirm subscription -> confirmed to true - DONE
 
 
-
-
-
-
-
-
-
-
+* DONE scrapper to be changed so it saves type = comment in the articles.json - DONE
 
 
 Additions
