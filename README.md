@@ -68,9 +68,9 @@ Links to my solutions are as follows:
 
 [Task 1, Beers and fries algorithm](https://github.com/pltod/hb-nodejs-2014-one)
 
-[Task 2, Web application for drawing triangles on HTML5 Canvas and features for storing and opening of these drawings](https://github.com/pltod/hb-nodejs-2014-two)
+[Task 2, Web application for drawing triangles on HTML5 Canvas](https://github.com/pltod/hb-nodejs-2014-two)
 
-> [Demo](http://pltod.github.io/blog/demos/canvas/)
+> Has features for storing and opening of these drawings using local storage. Uses JavaScript Generators. See [project repository](https://github.com/pltod/hb-nodejs-2014-two) for detailed info. [Demo is here](http://pltod.github.io/blog/demos/canvas/). Works in Firefox and Chrome with JavaScript experimental features turned on.
 
 
 [Task 3, CRUD expressjs app with mocha test suite](https://github.com/pltod/hb-nodejs-2014-three)
