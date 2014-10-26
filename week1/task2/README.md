@@ -14,9 +14,9 @@
 
 # Task Summary
 
-* on subscribe send email via mailer - DONE
+* DONE on subscribe send email via mailer - DONE
 
-* when user confirm subscription -> confirmed to true - DONE
+* DONE when user confirm subscription -> confirmed to true - DONE
 
 * notifier must send only to confirmed = true
 
@@ -24,7 +24,7 @@
 
 > find the parent story so it is also included in the mail
 
-* scrapper to be changed so it saves type = comment in the articles.json
+* DONE scrapper to be changed so it saves type = comment in the articles.json - DONE
 
 * statistic service
 

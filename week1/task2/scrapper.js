@@ -1,14 +1,15 @@
 var debug = require('debug')('scrapper');
 var _ = require('underscore');
-var read = require('../../shared/readers/reader-file');
+var read = require('../../shared/readers/reader-local');
 var write = require('../../shared/writers/writer-file');
 var http = require('http');
 var https = require('https');
 var collection = 'articles.json';
 var db = require('./db')([collection]);
+var api = require('./api');
 
 var maxItemFile = 'persist/maxitem.txt';
-var lastItemUsed = read.sync(maxItemFile);
+var lastItemUsed = parseInt(read.sync(maxItemFile));
 var ids = [];
 
 runProcess();
@@ -21,20 +22,19 @@ function runProcess() {
 }
 
 function step1_getLatestMaxItem() {
-  https.get("https://hacker-news.firebaseio.com/v0/maxitem.json", function (res) {
-    res.on('data', function(itemId) {
-      var currentItem = parseInt(itemId.toString());
-
-      //Limit the items to 100
-      if ((currentItem - lastItemUsed) > 100 ) {
-        ids = _.range(currentItem - 99, currentItem + 1);
-      } else {
-        ids = _.range(lastItemUsed + 1, currentItem + 1);
-      }
-      write(maxItemFile, currentItem);
-      step2_getAllArticles();
-    });
-  }).on('error', function(e) { console.error(e) })
+  api.getLatestPostId(function (err, id) {
+    var currentItem = parseInt(id);
+    debug('Current Last Item: ' + currentItem);
+    debug('Last Item Used: ' + lastItemUsed);    
+    //Limit the items to 100
+    if ((currentItem - lastItemUsed) > 100 ) {
+      ids = _.range(currentItem - 99, currentItem + 1);
+    } else {
+      ids = _.range(lastItemUsed + 1, currentItem + 1);
+    }
+    write(maxItemFile, currentItem);
+    step2_getAllArticles();
+  });
 }
 
 
@@ -46,41 +46,30 @@ function step2_getAllArticles() {
     console.log('No new data at this moment');
   } else {
     _.each(ids, function (id) {
-      var url = "https://hacker-news.firebaseio.com/v0/item/" + id + ".json?print=pretty";
-      https.get(url, function(res) {
-        var payload = "";
-        res.on('data', function(data) {
-          payload = payload.concat(data);
-        });
-        
-        res.on('end', function () {
-          var dataJSON;
-          finishedRequests = finishedRequests + 1;
-          debug('Finished Requests: ' + finishedRequests);
-          debug('With URL: ' + url);
-          try {
-            debug(payload.toString());
-            dataJSON = JSON.parse(payload.toString())
-          } catch(e) {
-            //Some of the responses have incorrect JSON - skip these
-            return;
-          }
-          step3_ProcessFoundData(dataJSON, (expectedRequests === finishedRequests));
-        });
-        
-      }).on('error', function(e) {
-        console.error(e);
-      });
+      api.getPost(id, function (err, post) {
+        var dataJSON;
+        finishedRequests = finishedRequests + 1;
+        debug('Finished Requests: ' + finishedRequests);
+        try {
+          debug(post);
+          dataJSON = JSON.parse(post)
+        } catch(e) {
+          //Some of the responses have incorrect JSON - skip these
+          return;
+        }
+        step3_ProcessFoundData(dataJSON, (expectedRequests === finishedRequests));
+      })
     })
   }
 }
 
 function step3_ProcessFoundData(data, isLast) {
-  if (data.type === 'story') {
+  if (data.type === 'story' || data.type === 'comment') {
     db.insertOne(collection, data, false);
   }
   if (isLast) {
-    wakeUpNotifier();
+    //wakeUpNotifier();
+    console.log('Wake up notifier');
   }
 }
 
