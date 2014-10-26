@@ -5,8 +5,9 @@ This repo contains all the code written by me - [@pltod](https://twitter.com/plt
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 - [Repository Scaffolding](#repository-scaffolding)
-- [Course Assignments And Solutions](#course-assignments-and-solutions)
-- [Application Process Assignments And Solutions](#application-process-assignments-and-solutions)
+- [Reusable Components](#reusable-components)
+- [Solutions to Course Assignments](#solutions-to-course-assignments)
+- [Solutions to Admission Assignments](#solutions-to-admission-assignments)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -24,6 +25,10 @@ The repo structure is as follows:
 
 * weekX/README.md covers some of the lessons learned during the week
 
+
+# Reusable Components
+
+The folder named "shared" holds modules that are created as reausable components with purpose of being reused across several tasks.
 
 # Solutions to Course Assignments 
 
