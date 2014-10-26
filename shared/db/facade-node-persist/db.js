@@ -1,6 +1,6 @@
 var debug = require('debug')('db-test');
 var storage = require('node-persist');
-var dbUtils = require("../../../shared/utils/db-utils");
+var dbUtils = require("../utils");
 var _ = require('underscore');
 
 

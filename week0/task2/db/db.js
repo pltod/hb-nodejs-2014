@@ -1,5 +1,5 @@
 var debug = require('debug')('db');
-var dbUtils = require("../../../shared/utils/db-utils");
+var dbUtils = require("../../../shared/db/db-utils");
 var _ = require('underscore');
 
 // ... and only for the deep clone

@@ -5,7 +5,7 @@ var write = require('../../shared/writers/writer-file');
 var http = require('http');
 var https = require('https');
 var collection = 'articles.json';
-var db = require('./db')([collection]);
+var db = require('../../shared/db/facade-node-persist')([collection]);
 var api = require('./api');
 
 var maxItemFile = 'persist/maxitem.txt';

@@ -7,7 +7,7 @@ var app = express();
 
 var mailer = require('../../shared/mailer');
 var collections = ["articles.json", "subscribers.json"];
-var db = require('./db')(collections);
+var db = require('../../shared/db/facade-node-persist')([collection]);
 var api = require('./api')
 
 app.use(bodyParser.json());
