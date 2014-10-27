@@ -40,7 +40,7 @@ function s2_getPosts(ids, done, allDone) {
   ids.forEach(function(id) {
     api.getPost(id, function(err, post) {
       var dataJSON = JSON.parse(post)
-      finishedRequests = finishedRequests + 1;
+      finishedRequests++;
       debug('Finished Requests: ' + finishedRequests);
       dataJSON && (dataJSON.type === 'story' || dataJSON.type === 'comment') && posts.push(dataJSON);
       (expectedRequests === finishedRequests) && s3_savePosts(posts, allDone);

@@ -47,48 +47,36 @@ function processSubscriptions(subscriptions, posts) {
     if (!subscription.confirmed) {
       return;
     }
-    createNewsletter(subscription.keywords, posts, function(newsletter) {
+    createNewsletter(subscription, posts, function(newsletter) {
       sendMailTo(subscription.email, newsletter);
     });
   })
 }
 
-function createNewsletter(keywords, posts, callback) {
+function createNewsletter(subscription, posts, callback) {
   var postsToSend = [];
   var expectedRequests = posts.length;
-  debug(expectedRequests);
   var finishedRequests = 0;
   debug('Expected Requests: ' + expectedRequests);
+  
   async.eachSeries(posts, function(post, done) {
-    debug('POST');
+    finishedRequests++;
+    debug('Finished Requests: ' + finishedRequests);
     var words = tokenizer.tokenize(post.title || post.text);
-    var matches = _.intersection(keywords, words);
-    var desiredPost = (matches.length > 0);
-    debug(desiredPost);
-    debug(keywords);
-    debug(words);
-    debug(matches);
-
-    if (desiredPost && post.type === 'story') {
-      debug('STORY');
-      postsToSend.push(post);
-      finishedRequests = finishedRequests + 1;
-      debug('Finished Requests: ' + finishedRequests);
-      (expectedRequests === finishedRequests) && callback(postsToSend);
-      done();
-    } else if (desiredPost && post.type === 'comment') {
-      debug('COMMENT');
+    var matches = _.intersection(subscription.keywords, words);
+    var desiredPost = (matches.length > 0) && _.contains(subscription.type, post.type);
+    
+    if (desiredPost && post.type === 'comment') {
       api.getParentStory(post.parent, function(err, parentStory) {
         err ? console.log('WARNING: Parent story fail') : post.parentStory = parentStory
         postsToSend.push(post);
-        finishedRequests = finishedRequests + 1;
-        debug('Finished Requests: ' + finishedRequests);
         (expectedRequests === finishedRequests) && callback(postsToSend);
         done();
       })
     } else {
-      finishedRequests = finishedRequests + 1;
-      debug('Finished Requests: ' + finishedRequests);
+      if (desiredPost && post.type === 'story') {
+        postsToSend.push(post);
+      }
       (expectedRequests === finishedRequests) && callback(postsToSend);
       done();
     }
