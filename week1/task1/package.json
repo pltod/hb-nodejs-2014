@@ -9,7 +9,9 @@
     "notifier": "node notifier.js",
     "notifier-dev": "DEBUG=* node notifier.js",
     "scrapper": "node scrapper.js",
-    "scrapper-dev": "DEBUG=* node scrapper.js"
+    "scrapper-dev": "DEBUG=* node scrapper.js",
+    "statistics": "node statistics.js",
+    "statistics-dev": "DEBUG=* node statistics.js"
   },
   "author": "Plamen Todorov",
   "license": "MIT",
