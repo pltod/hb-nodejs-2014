@@ -1,69 +1,127 @@
 var debug = require('debug')('notifier');
 var _ = require('underscore');
-
+var async = require('async');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-
 var mailer = require('../../shared/mailer');
+var tokenizer = require('../../shared/tokenizer');
 var collections = ["articles.json", "subscribers.json"];
-var db = require('../../shared/db/facade-node-persist')([collection]);
+var db = require('../../shared/db/facade-node-persist')(collections);
 var api = require('../../shared/api/facade-firebase');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
   res.send('Hello from Notifier Module!');
 });
 
-app.post('/newArticles', function (req, res) {
+app.get('/newArticles', function(req, res) {
+  var subscriptions, posts;
   debug('Request accepted!');
-  // db.init();
-  var subscriptions = db.findAll(collections[1]);
-  var articles = db.findAll(collections[0]);
-  //clean for the next time...these will be processed now
-  db.rmAll(collections[0]);
-  debug(articles.length);  
-  processSubscriptions(subscriptions, articles);
-  res.send('Subscriptions are going to be processed and mails will be sent shortly');
+  db.init();
+  subscriptions = db.findAll(collections[1]);
+  posts = db.findAll(collections[0]);
+  debug('The number of subscriptions to process: ' + subscriptions.length);
+  debug('The number of post to process: ' + posts.length);
+  debug('Cleaninng posts to not process them again in the future');
+  //db.rmAll(collections[0]);
+
+  if (subscriptions.length === 0 || posts.length === 0) {
+    res.send('New posts or subscriptions are missing');
+  } else {
+    processSubscriptions(subscriptions, posts);
+    res.send('Subscriptions are going to be processed and mails will be sent shortly');
+  }
 });
 
-app.listen(3001, function () {
+
+app.post('/newArticles', function(req, res) {
+  var subscriptions, posts;
+  debug('Request accepted!');
+  db.init();
+  subscriptions = db.findAll(collections[1]);
+  posts = db.findAll(collections[0]);
+  debug('The number of subscriptions to process: ' + subscriptions.length);
+  debug('The number of post to process: ' + posts.length);
+  debug('Cleaninng posts to not process them again in the future');
+  db.rmAll(collections[0]);
+
+  if (subscriptions.length === 0 || posts.length === 0) {
+    res.send('New posts or subscriptions are missing');
+  } else {
+    processSubscriptions(subscriptions, posts);
+    res.send('Subscriptions are going to be processed and mails will be sent shortly');
+  }
+});
+
+app.listen(3001, function() {
   console.log('Notifier listens on localhost at port 3001');
 })
 
-function processSubscriptions(subscriptions, articles) {
-  _.each(subscriptions, function (subscription) {
-    
+function processSubscriptions(subscriptions, posts) {
+  _.each(subscriptions, function(subscription) {
     if (!subscription.confirmed) {
-      // Not confirmed subscriptions are skipped
-      return;
+      return; 
     }
-    
-    var articlesToSend = [];
-    var keywords = subscription.keywords;
-    _.each(articles, function (article) {
-      var words;
-      if (article.title !== undefined) {
-        // Sometimes titles are empty..deleted items for example
-        words = article.title.split(' '); 
-      }
-      
-      var matches = _.intersection(keywords, words)
-      if (!_.isEmpty(matches)) {
-        articlesToSend.push(article);
-        if (article.type === 'comment') {
-          // TODO Obtain the parent story and add it in articlesToSend
-          // api.getParentStory(article.id)
-        }
-      }
+    createNewsletter(subscription.keywords, posts, function (newsletter) {
+      debug(newsletter);
+      sendMailTo(subscription.email, newsletter);
     });
-    if (!_.isEmpty(articlesToSend)) {
-      debug(articlesToSend);
-      console.log(mailer.sendEmail(subscription.email, JSON.stringify(articlesToSend)))
-    } else {
-      console.log("No emails will be sent to: " + subscription.email + " / " + subscription.uid)
-    }
   })
+}
+
+function createNewsletter(keywords, posts, callback) {
+  var postsToSend = [];
+  var expectedRequests = posts.length;
+  debug(expectedRequests);
+  var finishedRequests = 0;
+  debug('Expected Requests: ' + expectedRequests);
+  async.eachSeries(posts, function(post, done) {
+    debug('POST');
+    var words = tokenizer.tokenize(post.title || post.text);
+    var matches = _.intersection(keywords, words);
+    var desiredPost = (matches.length > 0);
+    debug(desiredPost);
+    debug(keywords);
+    debug(words);
+    debug(matches);
+
+    if (desiredPost && post.type === 'story') {
+      debug('STORY');
+      postsToSend.push(post);
+      finishedRequests = finishedRequests + 1;
+      debug('Finished Requests: ' + finishedRequests);
+      (expectedRequests === finishedRequests) && callback(JSON.stringify(postsToSend));
+      done();
+    } else if (desiredPost && post.type === 'comment') {
+      debug('COMMENT');
+      api.getParentStory(post.parent, function(err, parentStory) {
+        err ? console.log('WARNING: Parent story fail') : post.parentStory = parentStory
+        postsToSend.push(post);
+        finishedRequests = finishedRequests + 1;
+        debug('Finished Requests: ' + finishedRequests);
+        (expectedRequests === finishedRequests) && callback(JSON.stringify(postsToSend));
+        done();
+      })
+    } else {
+      finishedRequests = finishedRequests + 1;
+      debug('Finished Requests: ' + finishedRequests);
+      (expectedRequests === finishedRequests) && callback(JSON.stringify(postsToSend));
+      done();      
+    }
+  });
+}
+
+function sendMailTo(email, data) {
+  debug(data.length);
+  if (data.length > 0) {
+    debug('beep');
+    mailer.sendEmail('HN Newsletter Service', 'Newsletter', email, data);
+  } else {
+    debug('boop');
+  }
 }

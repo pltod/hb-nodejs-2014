@@ -42,7 +42,7 @@ function s2_getPosts(ids, done, allDone) {
       var dataJSON = JSON.parse(post)
       finishedRequests = finishedRequests + 1;
       debug('Finished Requests: ' + finishedRequests);
-      (dataJSON.type === 'story' || dataJSON.type === 'comment') && posts.push(dataJSON);
+      dataJSON && (dataJSON.type === 'story' || dataJSON.type === 'comment') && posts.push(dataJSON);
       (expectedRequests === finishedRequests) && s3_savePosts(posts, allDone);
     })
   })
