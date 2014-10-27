@@ -8,7 +8,7 @@ module.exports = {
 }
 
 function getLatestPostId(callback) {
-  read.https(
+  read.httpsGet(
     "https://hacker-news.firebaseio.com/v0/maxitem.json",
     callback
   )
@@ -17,7 +17,7 @@ function getLatestPostId(callback) {
 function getPost(id, callback) {
   var url = "https://hacker-news.firebaseio.com/v0/item/" + id + ".json";
   debug('Obtain post at: ' + url);
-  read.https(
+  read.httpsGet(
     url,
     callback
   )

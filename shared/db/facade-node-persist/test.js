@@ -12,7 +12,7 @@ var item = {"email": "3@4th.dim", "keywords": ["nodejs", "javascript"], "type": 
 
 test('### Insert - Find - Check - Delete ###', function(t) {
   db.rmAll(collection);  
-  db.insertMany(collection, testData);
+  db.insertMany(collection, testData, true);
   var data = db.findAll(collection);
   debug(data);
   t.equal(testData.length, data.length, testData.length + " records exists")

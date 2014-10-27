@@ -14,6 +14,7 @@ module.exports = function (collections) {
   })
   
   return {
+    init: init,
     insertMany: insertMany,
     insertOne: insertOne,  
     findAll: findAll,
@@ -23,10 +24,16 @@ module.exports = function (collections) {
   }
 }
 
-function insertMany(collection, data) {
-  _.each(data, function (item) {
-    tagItem(item);
-  })
+function init() {
+  storage.initSync();
+}
+
+function insertMany(collection, data, needTag) {
+  if (needTag) {
+    _.each(data, function (item) {
+      tagItem(item);
+    })
+  }
   debug(data);
   storage.setItem(collection, data);
 }
@@ -39,7 +46,7 @@ function insertOne(collection, item, needTag) {
   return item.uid;
 }
 
-function findAll(collection, isNumber) {
+function findAll(collection) {
   return storage.getItem(collection);
 }
 
