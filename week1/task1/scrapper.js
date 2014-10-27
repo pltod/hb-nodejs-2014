@@ -1,6 +1,4 @@
-// My timer execution time is 0 seconds and 673.776067 milliseconds.
 var debug = require('debug')('scrapper');
-var timer = require('../../shared/timer')();
 var api = require('../../shared/api/facade-firebase');
 
 run();
@@ -36,7 +34,6 @@ function s2_getPosts(ids, done, allDone) {
   var posts = [];
   debug('Expected Requests: ' + expectedRequests);
 
-  timer.start();
   ids.forEach(function(id) {
     api.getPost(id, function(err, post) {
       var dataJSON = JSON.parse(post)
