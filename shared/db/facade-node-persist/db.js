@@ -10,7 +10,9 @@ module.exports = function (collections) {
   
   // init empty
   _.each(collections, function (collection) {
-    storage.setItem(collection, []);
+    if (!storage.getItem(collection)) {
+      storage.setItem(collection, []);  
+    }
   })
   
   return {

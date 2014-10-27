@@ -36,7 +36,7 @@ function getParentStory(id, callback) {
     debug('Post type: ' + obj.type);
         
     if (obj.type === 'story') {
-      callback(null, post)
+      callback(null, obj)
     } else {
       getPost(obj.parent, handler)
     }
