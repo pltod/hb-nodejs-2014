@@ -19,26 +19,6 @@ app.get('/', function(req, res) {
   res.send('Hello from Notifier Module!');
 });
 
-app.get('/newArticles', function(req, res) {
-  var subscriptions, posts;
-  debug('Request accepted!');
-  db.init();
-  subscriptions = db.findAll(collections[1]);
-  posts = db.findAll(collections[0]);
-  debug('The number of subscriptions to process: ' + subscriptions.length);
-  debug('The number of post to process: ' + posts.length);
-  debug('Cleaninng posts to not process them again in the future');
-  //db.rmAll(collections[0]);
-
-  if (subscriptions.length === 0 || posts.length === 0) {
-    res.send('New posts or subscriptions are missing');
-  } else {
-    processSubscriptions(subscriptions, posts);
-    res.send('Subscriptions are going to be processed and mails will be sent shortly');
-  }
-});
-
-
 app.post('/newArticles', function(req, res) {
   var subscriptions, posts;
   debug('Request accepted!');
@@ -65,10 +45,9 @@ app.listen(3001, function() {
 function processSubscriptions(subscriptions, posts) {
   _.each(subscriptions, function(subscription) {
     if (!subscription.confirmed) {
-      return; 
+      return;
     }
-    createNewsletter(subscription.keywords, posts, function (newsletter) {
-      debug(newsletter);
+    createNewsletter(subscription.keywords, posts, function(newsletter) {
       sendMailTo(subscription.email, newsletter);
     });
   })
@@ -95,7 +74,7 @@ function createNewsletter(keywords, posts, callback) {
       postsToSend.push(post);
       finishedRequests = finishedRequests + 1;
       debug('Finished Requests: ' + finishedRequests);
-      (expectedRequests === finishedRequests) && callback(JSON.stringify(postsToSend));
+      (expectedRequests === finishedRequests) && callback(postsToSend);
       done();
     } else if (desiredPost && post.type === 'comment') {
       debug('COMMENT');
@@ -104,24 +83,22 @@ function createNewsletter(keywords, posts, callback) {
         postsToSend.push(post);
         finishedRequests = finishedRequests + 1;
         debug('Finished Requests: ' + finishedRequests);
-        (expectedRequests === finishedRequests) && callback(JSON.stringify(postsToSend));
+        (expectedRequests === finishedRequests) && callback(postsToSend);
         done();
       })
     } else {
       finishedRequests = finishedRequests + 1;
       debug('Finished Requests: ' + finishedRequests);
-      (expectedRequests === finishedRequests) && callback(JSON.stringify(postsToSend));
-      done();      
+      (expectedRequests === finishedRequests) && callback(postsToSend);
+      done();
     }
   });
 }
 
 function sendMailTo(email, data) {
-  debug(data.length);
   if (data.length > 0) {
-    debug('beep');
-    mailer.sendEmail('HN Newsletter Service', 'Newsletter', email, data);
+    mailer.sendEmail('HN Newsletter Service', 'Newsletter', email, JSON.stringify(data));
   } else {
-    debug('boop');
+    debug('Nothing to be sent.');
   }
 }
