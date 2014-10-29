@@ -68,7 +68,6 @@ function execute(f, params, res, errorCode) {
 
 function pong(res, code, data) {
   res.writeHead(code, {'Content-Type': 'application/json'});
-  debug('dsdsds: ');
   debug(data);
   (typeof data === "string") ? res.write(data) : res.write(JSON.stringify(data));
   res.end();
