@@ -1,22 +1,72 @@
 var debug = require('debug')('social-service');
-var Graph = require("./graph");
+var _ = require('underscore');
+var utils = require('../../shared/db/utils');
+//var owner = 'pltod';
+//var nodes = api.following(owner);
 
 
-module.exports = function (owner, depth) {
-  var owner = owner;
-  var depth = depth;
-  var graph = new Graph(owner, depth);
+var api = require('./facade-github'); //Obtain data
+var Graph = require("./graph"); //Store it as graph
 
-  debug('Created graph: ' + graph.toString());
+// TODO
+
+// * call API FACADE
+// * build graph representation with adjacency list
+// * keep a structure id <-> instantiated Graph
+
+//debug(graphs);
+
+
+module.exports = function () {
+  var graphs = [];
+
+
+  // var owner = owner;
+  // var depth = depth;
+  // 
+  // nodes.forEach(function (node) {
+  //   debug(node.login);
+  // });
+  
+  // This could be with new Graph (DATA) 
+  //var graph = new Graph(owner, depth);
+
+  //debug('Created graph: ' + graph.toString());
 
   return {
     
-    uid: function () {
-      return graph.getUID();
+    generateGraph: function (owner, depth) {
+      var graph;
+      var existingGraph = _.findWhere(graphs, {owner: owner, depth: depth});
+      if (existingGraph) {
+        return existingGraph;
+      } else {
+        graph = {id: utils.uid(), owner: owner, depth: depth, graph: new Graph()};        
+        graphs.push(graph);
+        return graph;
+      }
     },
+
+    regenerateGraph: function (owner, depth) {
+      var graph = {id: utils.uid(), owner: owner, depth: depth, graph: new Graph()};
+      graphs = _.filter(graphs, function(graph){ return ((graph.owner !== owner) && (graph.depth !== depth)) });
+      graphs.push(graph);
+      return graph;
+    },
+
+    generatedGraphs: function () {
+      return _.map(graphs, function (graph) {
+        return _.pick(graph, 'id', 'owner', 'depth');
+      })
+    },
+    
     // returns a list with the usersnames of everyone the user follows
     following: function () {
-      // Not only the direct level but several level depending on the depth
+      // Not only the direct level but several level depending on the depth ???
+      // May be only the first level of following
+      
+      // use DirectedGraph.prototype.getNeighboursFor ()
+      
       return [];
     },
     // accepts a username and returns true/false if the main user follows the one specified by the argument
