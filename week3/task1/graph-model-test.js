@@ -5,3 +5,5 @@
   {"user": "node4", "followers": ["node6", "node7"]}, //Level 3
   {"user": "node5", "followers": ["node8", "node9"]}  //Level 3
 ]
+
+// TODO Test suite

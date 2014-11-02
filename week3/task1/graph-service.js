@@ -1,4 +1,4 @@
-var debug = require('debug')('social-service');
+var debug = require('debug')('graph-service');
 var _ = require('underscore');
 var utils = require('../../shared/db/utils');
 //var owner = 'pltod';
@@ -6,7 +6,7 @@ var utils = require('../../shared/db/utils');
 
 
 var api = require('./facade-github'); //Obtain data
-var Graph = require("./graph"); //Store it as graph
+var Graph = require("./graph-model"); //Store it as graph
 
 // TODO
 
@@ -16,9 +16,9 @@ var Graph = require("./graph"); //Store it as graph
 
 //debug(graphs);
 
+var graphs = [];
 
 module.exports = function () {
-  var graphs = [];
 
 
   // var owner = owner;
@@ -37,28 +37,39 @@ module.exports = function () {
     
     generateGraph: function (owner, depth) {
       var graph;
-      var existingGraph = _.findWhere(graphs, {owner: owner, depth: depth});
+      var existingGraph = findByOwnerAndDepth(owner, depth);
       if (existingGraph) {
         return existingGraph;
       } else {
-        graph = {id: utils.uid(), owner: owner, depth: depth, graph: new Graph()};        
+        graph = createGraph(owner, depth);        
         graphs.push(graph);
         return graph;
       }
     },
 
     regenerateGraph: function (owner, depth) {
-      var graph = {id: utils.uid(), owner: owner, depth: depth, graph: new Graph()};
-      graphs = _.filter(graphs, function(graph){ return ((graph.owner !== owner) && (graph.depth !== depth)) });
+      var graph = createGraph(owner, depth);
+      graphs = removeByOwnerAndDepth(owner, depth);
       graphs.push(graph);
       return graph;
     },
 
-    generatedGraphs: function () {
+    getAllGraphs: function () {
       return _.map(graphs, function (graph) {
         return _.pick(graph, 'id', 'owner', 'depth');
       })
     },
+    
+    getGraph: function (id) {
+      var graph = findById(id);
+      if (graph) {
+        return graph.data.toString()
+      }
+      
+      return 'Graph with ' + id + ' does not exists';
+    },
+    
+    // THE METHODS BELLOW COULD BE IN A SEPARATE INTERFACE THAT WORKS IN A CONTEXT OF GRAPH ID
     
     // returns a list with the usersnames of everyone the user follows
     following: function () {
@@ -83,3 +94,26 @@ module.exports = function () {
   }  
 }
 
+function createGraph(owner, depth) {
+  // TODO Real Creation
+  var graph = new Graph();
+  
+  return {
+    id: utils.uid(),
+    owner: owner,
+    depth: depth,
+    data: graph
+  }
+}
+
+function findById(id) {
+  return _.findWhere(graphs, {id: id});
+}
+
+function findByOwnerAndDepth(owner, depth) {
+  return _.findWhere(graphs, {owner: owner, depth: depth})
+}
+
+function removeByOwnerAndDepth(owner, depth) {
+  return _.filter(graphs, function(graph){ return ((graph.owner !== owner) && (graph.depth !== depth)) })
+}

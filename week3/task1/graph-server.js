@@ -1,9 +1,9 @@
-var debug = require('debug')('social-server');
+var debug = require('debug')('graph-server');
 var config = require('./config');
 var express = require("express");
 var bodyParser = require('body-parser');
 var app = express();
-var service = require('./social-service')();
+var service = require('./graph-service')();
 
 
 app.all("*", function(req, res, next) {
@@ -35,18 +35,21 @@ app.post("/createGraphFor", function (req, res) {
 });
 
 app.get("/graphs", function(req, res) {
-  res.send(service.generatedGraphs());
+  res.send(service.getAllGraphs());
 });
 
 app.get("/graph/:graphId", function(req, res) {
-  debug(req.params.graphId);
-  res.send(req.params.graphId);
+  res.send(service.getGraph(req.params.graphId));
 });
 
 app.get("/mutually_follow/:graphId/:username", function(req, res) {
   debug(req.params.graphId);
-  debug(req.params.username); 
-  res.send(req.params.graphId + ' - ' + req.params.username);
+  debug(req.params.username);
+  var computedRelation = 'mutual';
+  var answer = {
+    "relation": computedRelation
+  } 
+  res.send(answer);
 });
 
 app.listen(8000);
