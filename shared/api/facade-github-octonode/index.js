@@ -1,21 +1,24 @@
 var debug = require('debug')('facade-github-octonode');
 var github = require('octonode');
 
-module.exports = function(token) {
-
-  var token = token;
-  var client = github.client(token);
-
-  return {
-    //callback -> err, body, headers
-    following: function(user, callback) {
-      debug('Searching followers of ' + user);
-      var ghuser = client.user(user);
-      ghuser.following(callback);
-    },
-    //callback -> err, left, max
-    limit: function(callback) {
-      client.limit(callback)
+module.exports = function(options) {
+  var token, client;
+  
+  if (options.mock) {
+    return require('./mock')(options.mockData);
+  } else {
+    client = github.client(options.token)
+    return {
+      //callback -> err, body, headers
+      following: function(user, callback) {
+        debug('Searching who ' + name + ' is following');
+        var ghuser = client.user(user);
+        ghuser.following(callback);
+      },
+      //callback -> err, left, max
+      limit: function(callback) {
+        client.limit(callback)
+      }
     }
   }
 }
