@@ -9,6 +9,7 @@ module.exports = function(token) {
   return {
     //callback -> err, body, headers
     following: function(user, callback) {
+      debug('Searching followers of ' + user);
       var ghuser = client.user(user);
       ghuser.following(callback);
     },
