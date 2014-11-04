@@ -81,5 +81,7 @@ function rmOne(collection, uid) {
 
 function tagItem(item) {
   item.uid = dbUtils.uid();
+  
+  // TODO This is application specific
   item.confirmed = false;
 }
