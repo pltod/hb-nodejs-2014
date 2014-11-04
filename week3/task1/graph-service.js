@@ -1,55 +1,30 @@
 var debug = require('debug')('graph-service');
 var _ = require('underscore');
-var utils = require('../../shared/db/utils');
-//var owner = 'pltod';
-//var nodes = api.following(owner);
-
-
-var api = require('./facade-github'); //Obtain data
-var Graph = require("./graph-model"); //Store it as graph
-
-// TODO
-
-// * call API FACADE
-// * build graph representation with adjacency list
-// * keep a structure id <-> instantiated Graph
-
-//debug(graphs);
-
-var graphs = [];
+var db = require('./graph-db');
+var generator = require('./graph-generator');
 
 module.exports = function () {
-
-
-  // var owner = owner;
-  // var depth = depth;
-  // 
-  // nodes.forEach(function (node) {
-  //   debug(node.login);
-  // });
-  
-  // This could be with new Graph (DATA) 
-  //var graph = new Graph(owner, depth);
-
-  //debug('Created graph: ' + graph.toString());
 
   return {
     
     generateGraph: function (owner, depth) {
       var graph;
-      var existingGraph = findByOwnerAndDepth(owner, depth);
+      var existingGraph = db.findByOwnerAndDepth(owner, depth);
       if (existingGraph) {
+        // TODO make it async
         return existingGraph;
       } else {
-        graph = createGraph(owner, depth);        
-        graphs.push(graph);
-        return graph;
+        // TODO Move the callback in the server
+        generator.createGraph(owner, depth, function (err, graph) {
+          graphs.push(graph);
+          return graph;
+        });        
       }
     },
 
     regenerateGraph: function (owner, depth) {
-      var graph = createGraph(owner, depth);
-      graphs = removeByOwnerAndDepth(owner, depth);
+      var graph = generator.createGraph(owner, depth);
+      graphs = db.deleteByOwnerAndDepth(owner, depth);
       graphs.push(graph);
       return graph;
     },
@@ -92,28 +67,4 @@ module.exports = function () {
       return 2;
     }
   }  
-}
-
-function createGraph(owner, depth) {
-  // TODO Real Creation
-  var graph = new Graph();
-  
-  return {
-    id: utils.uid(),
-    owner: owner,
-    depth: depth,
-    data: graph
-  }
-}
-
-function findById(id) {
-  return _.findWhere(graphs, {id: id});
-}
-
-function findByOwnerAndDepth(owner, depth) {
-  return _.findWhere(graphs, {owner: owner, depth: depth})
-}
-
-function removeByOwnerAndDepth(owner, depth) {
-  return _.filter(graphs, function(graph){ return ((graph.owner !== owner) && (graph.depth !== depth)) })
 }

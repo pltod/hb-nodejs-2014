@@ -1,3 +1,7 @@
+**WIP**
+
+
+
 # TASKS
 
 
@@ -36,4 +40,13 @@ GET /mutually_follow/{graphId}/{username}
 ## Component 5 - Graph Storage
 
 * Store in DB - neo4j ???
+
+
+
+**TODO: TESTING ALL LAYERS**
+
+http://blog.abcedmindedness.com/2014/10/getting-started-with-hapijs-and-testing.html - could be used for server testing
+
+
+
 

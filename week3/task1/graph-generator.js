@@ -1,0 +1,1 @@
+var Graph = require("./graph-model"); //Store it as graph
