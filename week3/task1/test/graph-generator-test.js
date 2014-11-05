@@ -1,8 +1,4 @@
-var config = require('../../../../config');
 var test = require('tape');
-
-// ensures that the test is always working against the mock
-config.api.mock = true;
 var expectedData = {
   node1: ['node2', 'node3'],
   node2: ['node1', 'node4'],
@@ -10,18 +6,28 @@ var expectedData = {
   node4: ['node6', 'node7'],
   node5: ['node8', 'node9', 'node10']
 };
-var graphGenerator = require('../graph-generator')(config.api);
+var config = {
+  mock: true,
+  mockData: [
+    {"user": "node1", "following": [{"login": "node2"}, {"login": "node3"}]}, // Level 1
+    {"user": "node2", "following": [{"login": "node1"}, {"login": "node4"}]}, // Level 2 
+    {"user": "node3", "following": [{"login": "node4"}, {"login": "node5"}]}, // Level 2
+    {"user": "node4", "following": [{"login": "node6"}, {"login": "node7"}]}, // Level 3
+    {"user": "node5", "following": [{"login": "node8"}, {"login": "node9"}, {"login": "node10"}]}  // Level 3
+  ]
+};
+var graphGenerator = require('../graph-generator')(config);
 
 test('### Test Sequence Generation ###', function(t) {
-  graphGenerator.generateInSeq('node1', 3, function (result) {
-    t.deepEqual(result, JSON.stringify(expectedData), 'graph is ok');
+  graphGenerator.generateInSeq('node1', 3, function (err, result) {
+    t.deepEqual(result.relations, expectedData, 'graph is generated successfully');
     t.end();
   })
 });
 
 test('### Test Parallel Generation ###', function(t) {
-  graphGenerator.generateInParallel('node1', 3, function(result) {
-    t.equal(result, JSON.stringify(expectedData), 'graph is ok');
+  graphGenerator.generateInParallel('node1', 3, function(err, result) {
+    t.deepEqual(result.relations, expectedData, 'graph is generated successfully');
     t.end();
   })
 });
