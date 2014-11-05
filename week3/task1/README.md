@@ -40,22 +40,6 @@ GET /mutually_follow/{graphId}/{username}
 ## Component 5 - Graph Storage
 
 * Store in DB - neo4j ???
-
-
-
-
-TODOS
-
-* Testing all layers
-
-server testing -> http://blog.abcedmindedness.com/2014/10/getting-started-with-hapijs-and-testing.html
-
-
-* check if owner exists at all from the very beginning
-
-* migrate to node-persist
-
-* 
       
 
 

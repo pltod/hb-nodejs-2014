@@ -4,7 +4,7 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var app = express();
 var adminService = require('./graph-service-admin')(config.api);
-var socialService = require('./graph-service-admin');
+var socialService = require('./graph-service-social');
 
 app.all("*", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -41,7 +41,7 @@ app.get("/graphs", function(req, res) {
 });
 
 app.get("/graph/:graphId", function(req, res) {
-  res.send(adminService.getGraph(req.params.graphId));
+  res.send(adminService.getGraphData(req.params.graphId));
 });
 
 app.get("/mutually_follow/:graphId/:username", function(req, res) {
@@ -49,33 +49,23 @@ app.get("/mutually_follow/:graphId/:username", function(req, res) {
   debug(req.params.username);
   
   var user = req.params.username;
-  var answer = {};
-  var service = socialService(adminService.getGraph(req.params.graphId));
-  var forward = service.isFollowing(user);
-  var hasBackwardInfo = service.hasFollowingInfoFor(user);
-  
-  if (forward && hasBackwardInfo) {
-    if (service.isFollowingBack(user)) {
-      answer.relation = 'mutual'
-      res.send(answer);
-    } else {
-      answer.relation = 'first'
-      res.send(answer);
-    }
-  } else if (!forward && hasBackwardInfo) {
-    if (service.isFollowingBack(user)) {
-      answer.relation = 'second'
-      res.send(answer);
-    } else {
-      answer.relation = 'none'
-      res.send(answer);
-    }
-  } else if (forward && !hasBackwardInfo) {
-    answer.relation = 'possibly mutual but no complete info in generated graph';
-    res.send(answer);
-  }
+  var graph = adminService.getGraph(req.params.graphId);
+  debug(graph);
 
-  res.send(answer);
+  var service = socialService(graph);
+  var following = service.isFollowing(user);
+  debug(following);
+
+  var hasFollowBackInfo = service.hasFollowingInfoFor(user);
+  debug(hasFollowBackInfo);
+    
+  if (following) {
+    (service.isFollowingBack(user)) ? res.send({"relation": "mutual"}) : res.send({"relation": "first"})
+  } else if (!following && hasFollowBackInfo) {
+    (service.isFollowingBack(user)) ? res.send({"relation": "second"}) : res.send({"relation": "none"})      
+  } else if (!following && !hasFollowBackInfo) {
+    res.send({"relation": "possibly second but no complete info in generated graph"});
+  }
 });
 
 app.listen(8000);

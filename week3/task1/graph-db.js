@@ -8,7 +8,7 @@ module.exports = {
   findByOwnerAndDepth: findByOwnerAndDepth,
   deleteByOwnerAndDepth: deleteByOwnerAndDepth,
   findAllGraphsInfo: findAllGraphsInfo,
-  findGraphById: findGraphById
+  findGraphDataById: findGraphDataById
 }
 
 //  Format of graph: {id, owner, depth, data}
@@ -36,7 +36,7 @@ function findAllGraphsInfo() {
   })
 }
 
-function findGraphById(id) {
+function findGraphDataById(id) {
   var graph = findById(id);
   if (graph) {
     return graph.data.toString()

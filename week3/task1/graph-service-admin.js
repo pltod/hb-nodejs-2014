@@ -16,7 +16,7 @@ module.exports = function(config) {
           callback(null, existingGraph.id);
         }, 0);
       } else {
-        generator.generateInSeq(owner, depth, function(err, graph) {
+        generator.generateInParallel(owner, depth, function(err, graph) {
           var graphId = db.insert({
             owner: owner,
             depth: depth,
@@ -28,7 +28,7 @@ module.exports = function(config) {
     },
 
     regenerateGraph: function(owner, depth, callback) {
-      generator.generateInSeq(owner, depth, function(err, graph) {
+      generator.generateInParallel(owner, depth, function(err, graph) {
         db.deleteByOwnerAndDepth(owner, depth);
         var graphId = db.insert({
           owner: owner,
@@ -44,7 +44,11 @@ module.exports = function(config) {
     },
 
     getGraph: function(id) {
-      return db.findGraphById(id);
-    }
+      return db.findById(id);
+    },
+    
+    getGraphData: function(id) {
+      return db.findGraphDataById(id);
+    }    
   }
 }
