@@ -1,14 +1,15 @@
 {
-  "name": "social-service",
+  "name": "github-follower-graph",
   "version": "0.0.0",
-  "description": "Who follows you back on Github",
-  "main": "server.js",
+  "description": "Who follows who on Github",
+  "main": "graph-server.js",
   "scripts": {
     "test-model": "mocha test/graph-model-test",
     "test-generator": "node test/graph-generator-test | colortape",
-    "start": "DEBUG=* node graph-server.js"
+    "start": "node graph-server.js",    
+    "start-dev": "DEBUG=* node graph-server.js"
   },
-  "author": "Plamen Todorov",
+  "author": "Plamen Todorov / @pltod",
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",

@@ -1,6 +1,6 @@
 module.exports = {
   api: {
-    mock: true,
+    mock: false,
     mockData: [
       {"user": "node1", "following": [{"login": "node2"}, {"login": "node3"}]}, // depth 1
       {"user": "node2", "following": [{"login": "node1"}, {"login": "node4"}]}, // depth 2 

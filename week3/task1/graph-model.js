@@ -7,6 +7,10 @@ function DirectedGraph() {
   //  Format: {'node0': ['node1', 'node2']}
   this.nodes = {};
 
+  //  Format: {'node0': 'distance'}
+  // This is a matter of trade-off. More memory but keeps nodes structure concise
+  this.distances = {};
+
   // Adds an edge between two nodes. If the nodes does not exist, they should be created.
   DirectedGraph.prototype.addEdge = function (nodeA, nodeB) {
     if (this.nodes[nodeA]) {
@@ -18,6 +22,14 @@ function DirectedGraph() {
 
   DirectedGraph.prototype.addEdges = function (node, neighbours) {
     this.nodes[node] = neighbours;
+  }
+
+  DirectedGraph.prototype.addDistance = function (node, distance) {
+    this.distances[node] = distance;
+  }
+
+  DirectedGraph.prototype.getDistance = function (node) {
+    return this.distances[node];
   }
   
   // Returns a list of nodes (strings) for the given node

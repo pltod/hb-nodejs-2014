@@ -24,13 +24,13 @@ module.exports = function(config) {
 
       function runSeq(peers, callback) {
         var nextLevelPeers = [];
-        var thisLevelPeersNumber = peers.length;
+        var currentLevelPeersNumber = peers.length;
 
-        debug('The number of peers for processing on level ' + currentDepth + ' is ' + thisLevelPeersNumber);
+        debug('The number of peers for processing on level ' + currentDepth + ' is ' + currentLevelPeersNumber);
         async.eachSeries(peers, function(peer, done) {
           debug('Processing peer: ' + peer);
           var following;
-          thisLevelPeersNumber--;
+          currentLevelPeersNumber--;
           if (_.contains(visited, peer)) {
             done();
             //return;
@@ -48,7 +48,8 @@ module.exports = function(config) {
                 graph.addEdges(peer, names);
                 nextLevelPeers = nextLevelPeers.concat(names);
               }
-              if (thisLevelPeersNumber > 0) {
+              graph.addDistance(peer, currentDepth);
+              if (currentLevelPeersNumber > 0) {
                 done();
               } else {
                 (++currentDepth > maxDepth) ? callback(null, graph) : runSeq(nextLevelPeers, callback)
@@ -70,14 +71,14 @@ module.exports = function(config) {
 
       function runParallel(peers, callback) {
         var nextLevelPeers = [];
-        var thisLevelPeersNumber = peers.length;
+        var currentLevelPeersNumber = peers.length;
 
-        debug('The number of peers for processing on level ' + currentDepth + ' is ' + thisLevelPeersNumber);
+        debug('The number of peers for processing on level ' + currentDepth + ' is ' + currentLevelPeersNumber);
         peers.forEach(function(peer) {
           debug('Processing peer: ' + peer);
           var following;
           if (_.contains(visited, peer)) {
-            thisLevelPeersNumber--;
+            currentLevelPeersNumber--;
             return;
           } else {
             visited.push(peer);
@@ -85,7 +86,7 @@ module.exports = function(config) {
             following = api.following(peer, function(err, following, headers) {
               debug(peer + ' data obtained');
               var names;
-              thisLevelPeersNumber--;
+              currentLevelPeersNumber--;
               if (following.length === 0) {
                 graph.addEdges(peer, following);
               } else {
@@ -93,7 +94,8 @@ module.exports = function(config) {
                 graph.addEdges(peer, names);
                 nextLevelPeers = nextLevelPeers.concat(names);
               }
-              if (thisLevelPeersNumber === 0) {
+              graph.addDistance(peer, currentDepth);
+              if (currentLevelPeersNumber === 0) {
                 (++currentDepth > maxDepth) ? callback(null, graph) : runParallel(nextLevelPeers, callback)
               }
             });

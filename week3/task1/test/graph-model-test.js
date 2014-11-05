@@ -27,6 +27,14 @@ describe('Graph', function() {
     })
   })
 
+  describe('#addDistance()', function() {
+    it('should add distance info', function() {
+      var graph = new DirectedGraph();
+      graph.addDistance('node1', 1);
+      expect(graph.getDistance('node1')).to.be.equal(1);
+    })
+  })
+
   describe('#getNeighboursFor()', function() {
     it('should get neighbours for node', function() {
       var graph = new DirectedGraph();

@@ -43,14 +43,19 @@ GET /mutually_follow/{graphId}/{username}
 
 
 
-**TODO: TESTING ALL LAYERS**
 
-http://blog.abcedmindedness.com/2014/10/getting-started-with-hapijs-and-testing.html - could be used for server testing
+TODOS
+
+* Testing all layers
+
+server testing -> http://blog.abcedmindedness.com/2014/10/getting-started-with-hapijs-and-testing.html
 
 
-* TODO check if user exists
+* check if owner exists at all from the very beginning
 
 * migrate to node-persist
+
+* 
       
 
 
