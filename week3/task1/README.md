@@ -1,47 +1,47 @@
-**WIP**
+# Task Summary
+
+Github API based service for tracking following relationship.
+
+Full specification:
+
+> https://github.com/HackBulgaria/NodeJS-1/tree/master/week3/1-Who-Follows-You-Back
 
 
+# How to Run the Solution
 
-# TASKS
+* put your github access token in config.js
 
+* npm start (or npm run start-dev to see verbose output)
 
-## Component 1 - Util
+* in test dir run 
 
-* graph.js - the graph utils with 3 methods
+> ```curl -H "Content-Type: application/json" --data @graphFor.json http://localhost:8000/createGraphFor```
 
-* test.js - testing the graph logic
+* in the browser
 
-## Component 1.1 - Test Util
+> http://localhost:8000/graphs - show all generated graphs info
 
-* Mocha + Chai
+> http://localhost:8000/graph/:graphId - shows the graph data
 
-## Component 2 - Graph Builder
+> http://localhost:8000/mutually_follow/:graphId/:username - shows relationship between graph owner and username - first, second, mutual, none etc.
 
-* social service that builds the graph. Methods:
+# How to Run the Tests
 
-**following** - returns a list with the usersnames of everyone the user follows
-**isFollowing** - accepts a username and returns true/false if the main user follows the one specified by the argument
-**stepsTo** - accepts a username and return the number of hops needed to ge to that user following the following(pun not quite intended) relation
+* npm run graph-model
 
+> Test suite for the graph model made with Mocha and Chai
 
-## Component 3 - Server
+* npm run graph-generator
 
-POST /createGraphFor
-
-GET /graph/{graphId} 
-
-GET /mutually_follow/{graphId}/{username}
+> Test suite for graph generation with sequence and parallel algorithm. Made with tape to leverage async by default test capabilities. Works with mock data.
 
 
-## Component 4 - Github API Connector
+# Architecture Notes
 
-* https://developer.github.com/v3/
+* the application can be configured to work with mock data and to regenerate graph creation or return already generated
 
-## Component 5 - Graph Storage
+* data is not persistent. It is lost after server restart.
 
-* Store in DB - neo4j ???
-      
+* diagram with all components
 
-
-
-
+![](https://github.com/pltod/hb-nodejs-2014/blob/master/img/architecture.jpg)
