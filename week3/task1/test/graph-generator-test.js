@@ -19,15 +19,15 @@ var config = {
 var graphGenerator = require('../graph-generator')(config);
 
 test('### Test Sequence Generation ###', function(t) {
-  graphGenerator.generateInSeq('node1', 3, function (err, result) {
-    t.deepEqual(result.relations, expectedData, 'graph is generated successfully');
+  graphGenerator.generateInSeq('node1', 3, function (err, graph) {
+    t.deepEqual(graph.nodes, expectedData, 'graph is generated successfully');
     t.end();
   })
 });
 
 test('### Test Parallel Generation ###', function(t) {
-  graphGenerator.generateInParallel('node1', 3, function(err, result) {
-    t.deepEqual(result.relations, expectedData, 'graph is generated successfully');
+  graphGenerator.generateInParallel('node1', 3, function(err, graph) {
+    t.deepEqual(graph.nodes, expectedData, 'graph is generated successfully');
     t.end();
   })
 });

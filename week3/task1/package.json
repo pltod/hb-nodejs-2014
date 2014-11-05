@@ -4,6 +4,7 @@
   "description": "Who follows you back on Github",
   "main": "server.js",
   "scripts": {
+    "test-model": "mocha test/graph-model-test",
     "test-generator": "node test/graph-generator-test | colortape",
     "start": "DEBUG=* node graph-server.js"
   },
@@ -17,6 +18,7 @@
     "underscore": "^1.7.0"
   },
   "devDependencies": {
+    "chai": "^1.9.2",
     "colortape": "0.0.4"
   }
 }

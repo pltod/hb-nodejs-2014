@@ -48,5 +48,11 @@ GET /mutually_follow/{graphId}/{username}
 http://blog.abcedmindedness.com/2014/10/getting-started-with-hapijs-and-testing.html - could be used for server testing
 
 
+* TODO check if user exists
+
+* migrate to node-persist
+      
+
+
 
 

@@ -1,9 +1,58 @@
-[
-  {"user": "node1", "followers": ["node2", "node3"]},
-  {"user": "node2", "followers": ["node1", "node4"]}, //Level 2 
-  {"user": "node3", "followers": ["node4", "node5"]}, //Level 2
-  {"user": "node4", "followers": ["node6", "node7"]}, //Level 3
-  {"user": "node5", "followers": ["node8", "node9"]}  //Level 3
-]
+var expect = require('chai').expect;
+var DirectedGraph = require('../graph-model');
 
-// TODO Test suite
+
+describe('Graph', function() {
+
+  describe('#addEdge()', function() {
+    it('should add edge', function() {
+      var graph = new DirectedGraph();
+      graph.addEdge('node0', 'node1');
+      graph.addEdge('node0', 'node2');
+      graph.addEdge('node1', 'node3');
+      expect(graph.getNodes()).to.deep.equal({
+        'node0': ['node1', 'node2'],
+        'node1': ['node3']
+      });
+    })
+  })
+
+  describe('#addEdges()', function() {
+    it('should add edges', function() {
+      var graph = new DirectedGraph();
+      graph.addEdges('node0', ['node1', 'node2']);
+      expect(graph.getNodes()).to.deep.equal({
+        'node0': ['node1', 'node2']
+      });
+    })
+  })
+
+  describe('#getNeighboursFor()', function() {
+    it('should get neighbours for node', function() {
+      var graph = new DirectedGraph();
+      graph.addEdges('node0', ['node1', 'node2']);
+      expect(graph.getNeighboursFor('node0')).to.deep.equal(['node1', 'node2']);;
+    })
+  })
+
+  describe('#pathBetween()', function() {
+    it('should get neighbours for node', function() {
+      var graph = new DirectedGraph();
+      graph.addEdges('node0', ['node1', 'node2']);
+      graph.addEdges('node1', ['node3', 'node4']);
+      graph.addEdges('node2', ['node1', 'node5']);
+      expect(graph.pathBetween('node0', 'node1')).to.be.true;      
+      expect(graph.pathBetween('node0', 'node4')).to.be.true;      
+      expect(graph.pathBetween('node0', 'node5')).to.be.true;
+      expect(graph.pathBetween('node0', 'node6')).to.be.false;
+    })
+  })
+  
+  describe('#toString()', function() {
+    it('should stringify the graph data', function() {
+      
+    })
+  })
+
+
+})
