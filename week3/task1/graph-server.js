@@ -1,5 +1,5 @@
 var debug = require('debug')('graph-server');
-var config = require('../../../config');
+var config = require('./config');
 var express = require("express");
 var bodyParser = require('body-parser');
 var app = express();
