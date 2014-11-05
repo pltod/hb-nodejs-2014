@@ -39,11 +39,15 @@ module.exports = function(config) {
 
             // These are going to be parallel async calls
             following = api.following(peer, function(err, following) {
-              debug(peer + ' data obtained');              
-              var names = _.pluck(following, 'login');
-              graph.addEdges(peer, names);
-              nextLevelPeers = nextLevelPeers.concat(names);
-
+              debug(peer + ' data obtained');
+              var names;
+              if (following.length === 0) {
+                graph.addEdges(peer, following);
+              } else {
+                names = _.pluck(following, 'login');
+                graph.addEdges(peer, names);
+                nextLevelPeers = nextLevelPeers.concat(names);
+              }
               if (thisLevelPeersNumber > 0) {
                 done();
               } else {
@@ -61,7 +65,7 @@ module.exports = function(config) {
       var visited = [];
       var currentDepth = 1;
       var maxDepth = adjustDepth(depth);
-
+      
       runParallel([owner], callback);
 
       function runParallel(peers, callback) {
@@ -79,11 +83,16 @@ module.exports = function(config) {
             visited.push(peer);
             // These are going to be parallel async calls
             following = api.following(peer, function(err, following, headers) {
-              debug(peer + ' data obtained');              
+              debug(peer + ' data obtained');
+              var names;
               thisLevelPeersNumber--;
-              var names = _.pluck(following, 'login');
-              graph.addEdges(peer, names);
-              nextLevelPeers = nextLevelPeers.concat(names);
+              if (following.length === 0) {
+                graph.addEdges(peer, following);
+              } else {
+                names = _.pluck(following, 'login');
+                graph.addEdges(peer, names);
+                nextLevelPeers = nextLevelPeers.concat(names);
+              }
               if (thisLevelPeersNumber === 0) {
                 (++currentDepth > maxDepth) ? callback(null, graph) : runParallel(nextLevelPeers, callback)
               }
@@ -97,5 +106,5 @@ module.exports = function(config) {
 
 function adjustDepth(depth) {
   // If not correct do not throw just works with the smallest possible depth
-  return (depth < 1 || depth > 3) ?  1 : depth
+  return (depth < 1 || depth > 3) ? 1 : depth
 }
