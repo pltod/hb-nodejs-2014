@@ -44,4 +44,4 @@ Full specification:
 
 * diagram with all components
 
-![](https://github.com/pltod/hb-nodejs-2014/blob/master/img/architecture.jpg)
+![](https://github.com/pltod/hb-nodejs-2014/blob/master/week3/task1/img/architecture.jpg)
