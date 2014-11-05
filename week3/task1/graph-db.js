@@ -11,13 +11,15 @@ module.exports = {
   findGraphById: findGraphById
 }
 
+//  Format of graph: {id, owner, depth, data}
 function insert(graph) {
   graph.id = utils.uid();
   graphs.push(graph);
+  return graph.id;
 }
 
 function findById(id) {
-  return _.findWhere(graphs, {id: id});
+  return _.findWhere(graphs, {id: id})
 }
 
 function findByOwnerAndDepth(owner, depth) {
@@ -32,7 +34,7 @@ function findAllGraphsInfo() {
   return _.map(graphs, function (graph) {
     return _.pick(graph, 'id', 'owner', 'depth');
   })
-},
+}
 
 function findGraphById(id) {
   var graph = findById(id);

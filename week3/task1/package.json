@@ -4,7 +4,7 @@
   "description": "Who follows you back on Github",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-generator": "node test/graph-generator-test | colortape",
     "start": "DEBUG=* node graph-server.js"
   },
   "author": "Plamen Todorov",
@@ -15,5 +15,8 @@
     "express": "^4.10.0",
     "tape": "^3.0.1",
     "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "colortape": "0.0.4"
   }
 }

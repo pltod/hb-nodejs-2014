@@ -1,47 +1,42 @@
 var debug = require('debug')('graph-service');
 var _ = require('underscore');
-var db = require('./graph-db');
-var generator = require('./graph-generator');
 
-module.exports = function () {
-
+module.exports = function (config) {
+  var db = require('./graph-db');
+  var generator = require('./graph-generator')(config);
+  
   return {
     
-    generateGraph: function (owner, depth) {
-      var graph;
+    generateGraph: function (owner, depth, callback) {
       var existingGraph = db.findByOwnerAndDepth(owner, depth);
       if (existingGraph) {
-        // TODO make it async
-        return existingGraph;
+        // TODO better alternative for setTimeout
+        debug('Graph for user ' + owner + ' with depth ' + depth + ' is already created')
+        setTimeout(function() {
+          callback(null, existingGraph.id);
+        }, 0);
       } else {
-        // TODO Move the callback in the server
-        generator.createGraph(owner, depth, function (err, graph) {
-          graphs.push(graph);
-          return graph;
+        generator.generateInSeq(owner, depth, function (err, graph) {
+          var graphId = db.insert({owner: owner, depth: depth, data: graph});
+          callback(null, graphId);
         });        
       }
     },
 
-    regenerateGraph: function (owner, depth) {
-      var graph = generator.createGraph(owner, depth);
-      graphs = db.deleteByOwnerAndDepth(owner, depth);
-      graphs.push(graph);
-      return graph;
+    regenerateGraph: function (owner, depth, callback) {
+      generator.generateInSeq(owner, depth, function (err, graph) {
+        db.deleteByOwnerAndDepth(owner, depth);
+        var graphId = db.insert({owner: owner, depth: depth, data: graph});
+        callback(null, graphId);
+      });
     },
 
     getAllGraphs: function () {
-      return _.map(graphs, function (graph) {
-        return _.pick(graph, 'id', 'owner', 'depth');
-      })
+      return db.findAllGraphsInfo();
     },
     
     getGraph: function (id) {
-      var graph = findById(id);
-      if (graph) {
-        return graph.data.toString()
-      }
-      
-      return 'Graph with ' + id + ' does not exists';
+      return db.findGraphById(id);
     },
     
     // THE METHODS BELLOW COULD BE IN A SEPARATE INTERFACE THAT WORKS IN A CONTEXT OF GRAPH ID

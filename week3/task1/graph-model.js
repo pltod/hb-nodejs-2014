@@ -1,15 +1,8 @@
 var debug = require('debug')('graph-model');
 
-var data = [
-  {"user": "node1", "follows": ["node2", "node3"]}, // Level 1
-  {"user": "node2", "follows": ["node1", "node4"]}, // Level 2 
-  {"user": "node3", "follows": ["node4", "node5"]}, // Level 2
-  {"user": "node4", "follows": ["node6", "node7"]}, // Level 3
-  {"user": "node5", "follows": ["node8", "node9", "node10"]}  // Level 3
-]
-
 function DirectedGraph() {
   
+  //  Format: {'node0': ['node1', 'node2']}
   this.relations = {};
   
   DirectedGraph.prototype.getUID = function () {

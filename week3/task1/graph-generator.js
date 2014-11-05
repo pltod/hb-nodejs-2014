@@ -1,4 +1,4 @@
-var debug = require('debug')('graph-generator-test');
+var debug = require('debug')('graph-generator');
 
 var _ = require('underscore');
 var async = require('async');
@@ -47,7 +47,7 @@ module.exports = function(config) {
               if (thisLevelPeersNumber > 0) {
                 done();
               } else {
-                (++currentDepth > maxDepth) ? callback(graph.toString()) : runSeq(nextLevelPeers, callback)
+                (++currentDepth > maxDepth) ? callback(null, graph) : runSeq(nextLevelPeers, callback)
               }
             });
           }
@@ -85,7 +85,7 @@ module.exports = function(config) {
               graph.addEdges(peer, names);
               nextLevelPeers = nextLevelPeers.concat(names);
               if (thisLevelPeersNumber === 0) {
-                (++currentDepth > maxDepth) ? callback(graph.toString()) : runParallel(nextLevelPeers, callback)
+                (++currentDepth > maxDepth) ? callback(null, graph) : runParallel(nextLevelPeers, callback)
               }
             });
           }
