@@ -11,7 +11,7 @@ module.exports = function(options) {
     return {
       //callback -> err, body, headers
       following: function(user, callback) {
-        debug('Searching who ' + name + ' is following');
+        debug('Searching who ' + user + ' is following');
         var ghuser = client.user(user);
         ghuser.following(callback);
       },
