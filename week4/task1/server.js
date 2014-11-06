@@ -38,8 +38,16 @@ app.get("/snippet", function(req, res) {
 });
 
 app.post("/snippet", function(req, res) {
-  debug('Saving snippet...');  
-  res.send('OK');  
+  debug('Saving snippet...');
+  debug(req.body.lang);
+  debug(req.body.file);
+  debug(req.body.code);
+  debug(req.body.user);
+
+  var c = app.db.collection(config.defaultCollection);
+  c.insert(req.body, function (err, result) {
+    err ? res.json('KO') : res.json('OK')
+  });
 });
 
 app.put("/snippet/:id", function(req, res) {
