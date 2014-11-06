@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var collection = "subscribers.json";
 var db = require('../../shared/db/facade-node-persist')([collection]);
-var mailer = require('../../shared/mailer');
+var mailer = require('../../shared/util/mailer');
 var port = 8000;
 var mailTemplate = 'You have been subscribed! Please confirm <a href="http://localhost:' + port + '/confirm?email={email}&id={id}">here</a>';
 var mailOptions = {

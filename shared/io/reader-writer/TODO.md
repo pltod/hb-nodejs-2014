@@ -4,7 +4,7 @@
 
 > request
 
-> supperagent
+> superagent
 
 
 They all do write/read communications. Kind of through streams.

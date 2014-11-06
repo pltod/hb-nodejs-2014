@@ -1,7 +1,7 @@
 [
     {
         "confirmed": true,
-        "email": "pl.todorov@gmail.com",
+        "email": "mail@gmail.com",
         "keywords": [
             "people",
             "javascript",
@@ -10,6 +10,34 @@
         "type": [
             "comment"
         ],
-        "uid": "1bedd6f2-6fce-4fdf-9b0c-0a7c2d1b2eb8"
+        "uid": "1"
+    },
+    {
+        "confirmed": false,
+        "email": "mail@gmail.com",
+        "keywords": [
+            "Dropbox",
+            "Cool",
+            "ad"
+        ],
+        "type": [
+            "story",
+            "comment"
+        ],
+        "uid": "2"
+    },
+    {
+        "confirmed": true,
+        "email": "mail@gmail.com",
+        "keywords": [
+            "Dropbox",
+            "Cool",
+            "ad"
+        ],
+        "type": [
+            "story",
+            "comment"
+        ],
+        "uid": "3"
     }
 ]

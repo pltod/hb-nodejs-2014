@@ -1,14 +1,12 @@
 var debug = require('debug')('parse');
-var read = require('../../shared/readers/reader-local');
+var read = require('../../shared/io/reader/reader-file');
 var args = require("minimist")(process.argv.slice(2));
 var file = args._[0];
 var pRemoteHttp=/^http:/;
 var pRemoteHttps=/^https:/;
 var pIni=/\.ini$/;
 var pJson=/\.json$/;
-var hasExtension;
-var remoteFile;
-var extension;
+var hasExtension, remoteFile, extension;
 
 if (args.help || args.h) {
   printHelp(); 
