@@ -3,9 +3,10 @@ var fs = require('fs');
 var nodemailer = require('nodemailer');
 var smtpPool = require('nodemailer-smtp-pool');
 
-var emailService = require('./config').emailService;
-var senderEmail = require('./config').senderEmail;
-var senderPass = require('./config').senderPass;
+var config = require('../../../../mail-config');
+var emailService = config.emailService;
+var senderEmail = config.senderEmail;
+var senderPass = config.senderPass;
 
 var options = {
   service: emailService,
