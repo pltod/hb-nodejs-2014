@@ -1,4 +1,5 @@
-This repo contains all the code written by me - [@pltod](https://twitter.com/pltod) - during the NodeJS 2014 course offered by [@HackBulgaria](https://twitter.com/hackbulgaria).
+The Autumn/Winter of 2014. NodeJS/JavaScript coding 24x7 in [my](https://twitter.com/pltod) [@HackBulgaria](https://twitter.com/hackbulgaria) experience.
+
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
