@@ -1,6 +1,6 @@
 # Week 0
 
-* javascript language specifics
+* JavaScript language specifics
 
 * JavaScript Scoping
 
