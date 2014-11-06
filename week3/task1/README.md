@@ -1,6 +1,13 @@
 # Task Summary
 
-Github API based service for tracking following relationship.
+Github API based service that:
+
+* generate graphs with particular depth
+
+* for particular user 
+
+* for tracking following relationship - who follows who
+
 
 Full specification:
 
@@ -38,10 +45,16 @@ Full specification:
 
 # Architecture Notes
 
-* the application can be configured to work with mock data and to regenerate graph creation or return already generated
+* the application can be configured to work with mock data
 
-* data is not persistent. It is lost after server restart.
+* the application can be run in two modes:
 
-* diagram with all components
+> regenerate already generated graphs
+
+> generate only if not generated until now
+
+* data is not persistent, it is lost after server restart
+
+* all app components relates as follows
 
 ![](https://github.com/pltod/hb-nodejs-2014/blob/master/week3/task1/img/architecture.jpg)
