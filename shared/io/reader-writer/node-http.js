@@ -2,6 +2,7 @@ var http = require('http');
 var https = require('https');
 
 module.exports = {
+  async: httpsGet,
   httpGet: httpGet,
   httpsGet: httpsGet,
   httpPost: httpPost 

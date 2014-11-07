@@ -8,8 +8,17 @@
     "http",
     "parser"
   ],
+  "scripts": {
+    "iniToJson": "node parse test/sloppy.ini",
+    "jsonToIni": "node parse test/sloppy.json",
+    "iniToJsonNoExt": "node parse test/configIni --type 'ini'",
+    "jsonToIniNoExt": "node parse test/configJson  --type 'json'",
+    "missingType": "node parse test/configJson",
+    "missingFile": "node parse",
+    "iniToJsonRemote": "node parse https://raw.githubusercontent.com/HackBulgaria/NodeJS-1/master/week0/1-ini-parsing/config.ini"
+  },
   "author": {
-    "name": "Plamen Todorov"
+    "name": "Plamen Todorov / @pltod"
   },
   "license": "MIT",
   "dependencies": {

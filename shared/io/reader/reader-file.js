@@ -5,7 +5,7 @@ module.exports = {
   async: function (file, callback) { 
     fs.readFile(file, encoding, function (err, data) {
       if (err) throw err;
-      callback(data.toString());
+      callback(null, data.toString());
     });
   }, 
   sync: function (file) {
