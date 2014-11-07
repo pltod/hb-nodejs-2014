@@ -54,6 +54,7 @@ module.exports = function (app) {
     });
   });  
   
+  return app;
 }
 
 function pong(res, code, data) {

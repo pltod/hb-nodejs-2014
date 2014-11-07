@@ -4,8 +4,10 @@
   "description": "CRUD for code snippets served by Express stored in Mongo",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "start-dev": "DEBUG=* node server"    
+    "start": "node index",
+    "start-dev": "DEBUG=* node index",
+    "test": "mocha test/server-test",    
+    "test-dev": "DEBUG='superagent, snippet-app-server-test' mocha test/server-test"
   },
   "author": "Plamen Todorov",
   "license": "MIT",
@@ -15,5 +17,9 @@
     "express": "^4.9.8",
     "mongodb": "^1.4.19",
     "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "supertest": "^0.14.0"
   }
 }

@@ -11,7 +11,6 @@ module.exports = function(app, callback) {
 
   mongo.connect(url, function(err, db) {
     collection = db.collection(config.defaultCollection);
-
     app.db = {
       findSnippetById: function(id, callback) {
         collection.findOne({_id: ObjectID(id)}, function(err, snippet) {
@@ -44,6 +43,12 @@ module.exports = function(app, callback) {
           callback(err, result)
         });
       }
+    };
+    app.closeDb = db.close.bind(db);
+    app.cleanColl = function (callback) {
+      collection.remove(function (err, result) {
+        callback(err, result)
+      })
     };
 
     callback(err);
