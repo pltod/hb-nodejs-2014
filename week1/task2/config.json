@@ -1,0 +1,7 @@
+{
+    "defaultCollection": "colltemp",
+    "defaultDatabase": "dbtemp",
+    "defaultLocation": "dbdata",
+    "port": "27017",
+    "server": "localhost"
+}

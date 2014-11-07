@@ -1,4 +1,4 @@
-var debug = require('debug')('scrapper');
+var debug = require('debug')('scrapper-newsletter');
 var api = require('../../shared/api/facade-firebase');
 
 run();
@@ -55,7 +55,7 @@ function s3_savePosts(posts, allDone) {
 }
 
 function s4_wakeUpNotifier() {
-  var invoke = require('../../shared/readers/reader-remote');
+  var invoke = require('../../shared/io/reader-writer/node-http');
   invoke.httpPost(
     {
       hostname: 'localhost',
@@ -70,9 +70,9 @@ function s4_wakeUpNotifier() {
 }
 
 function getLastUsedId(latestId) {
-  var read = require('../../shared/readers/reader-local');
-  var write = require('../../shared/writers/writer-file');
-  var maxItemFile = 'persist/maxitem.txt';
+  var read = require('../../shared/io/reader/reader-file');
+  var write = require('../../shared/io/writer/writer-file');
+  var maxItemFile = 'maxitem-store/maxitem.txt';
   var lastUsedId = parseInt(read.sync(maxItemFile));
 
   write(maxItemFile, latestId);
