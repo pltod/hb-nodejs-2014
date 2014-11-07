@@ -1,5 +1,5 @@
 var debug = require('debug')('fb-api')
-var read = require('../../../shared/readers/reader-remote');
+var read = require('../../../shared/io/reader-writer/node-http');
 
 module.exports = {
   getLatestPostId: getLatestPostId,
