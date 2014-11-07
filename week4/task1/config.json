@@ -2,6 +2,6 @@
   "server": "localhost", 
   "port": "27017", 
   "defaultLocation": "dbdata",
-  "defaultDatabase": "snippets",
-  "defaultCollection": "main"
+  "defaultDatabase": "dbtemp",
+  "defaultCollection": "colltemp"
 }

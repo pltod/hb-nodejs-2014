@@ -1,6 +1,6 @@
 {
-  "lang": "js",
+  "code": "var test = 3;",
   "file": "test.js",
-  "code": "var test = 1;",
-  "user": "substack"
+  "lang": "js",
+  "user": "one"
 }

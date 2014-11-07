@@ -1,0 +1,8 @@
+[
+    {
+        "code": "var test = 1;",
+        "file": "test.js",
+        "lang": "js",
+        "user": "one"
+    }
+]

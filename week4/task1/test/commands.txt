@@ -1,1 +1,6 @@
 curl -H "Content-Type: application/json" --data @snippet.json http://localhost:8000/snippet
+
+
+curl -X PUT -H "Content-Type: application/json" --data @snippet.json http://localhost:8000/snippet/{ID HERE}
+
+curl -X DELETE http://localhost:8000/snippet/{ID HERE}
