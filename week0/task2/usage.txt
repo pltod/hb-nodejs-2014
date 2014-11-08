@@ -1,22 +1,22 @@
 usage:
 
-  node chirp_client.js --register {--user USER NAME}
+  node chirp_client --register {--user USER NAME}
     Creates a new user and returns a key for that user. After calling this method the client is working in the context of this registered user. Call this again with different user name if you want to register another user.
 
-  node chirp_client.js --getall
+  node chirp_client --getall
     Returns all the chirps for all the users we have in the DB. Newest chirps are first.
 
-  node chirp_client.js --getself
+  node chirp_client --getself
     Returns all the chirps for the currently registered user.
 
-  node chirp_client.js --create {--message CHIRP TEXT}
+  node chirp_client --create {--message CHIRP TEXT}
     Creates a new chirp on behalf of user and returns a chirpId.
   
-  node chirp_client.js --delete {--chirpid CHIRP ID}
+  node chirp_client --delete {--chirpid CHIRP ID}
     Deletes the chirp with the given id if the key matches the key of the chirp owner. Otherwise returns a 403 response code.      
 
-  node chirp_client.js --mygetallusers
+  node chirp_client --mygetallusers
     Returns all the users in the DB.
 
-  node chirp_client.js --mygetchirps
+  node chirp_client --mygetchirps
     Returns the chirp with the id specified or all the chirps for the user with id specified.

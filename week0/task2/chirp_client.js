@@ -2,10 +2,11 @@ var debug = require('debug')('chirp-api-client');
 var log = console.log;
 var fs = require('fs');
 
-var request = require("./chirp-api-connector");
-var configFile = 'config.json';
-var configContent = JSON.parse(readFile(configFile));
-debug(configContent);
+var api = require('../../shared/io/reader-writer/node-http');
+var request = require("./chirp-api-facade");
+
+var config = require('./config.json');
+var configFileName = "config.json";
 var args = require("minimist")(process.argv.slice(2));
 var commands = Object.keys(args);
 
@@ -40,8 +41,8 @@ function register() {
 function deleteChirp() {
   debug('Deleting chirp...')
   var data = {
-    user: configContent.user,
-    key: configContent.key,
+    user: config.user,
+    key: config.key,
     chirpId: args.chirpId  
   };
   if (isValidConfig()) {
@@ -59,8 +60,8 @@ function deleteChirp() {
 function createChirp() {
   debug('Creating chirp...')
   var data = {
-    user: configContent.user,
-    key: configContent.key,
+    user: config.user,
+    key: config.key,
     chirpText: args.message  
   };
   if (isValidConfig()) {
@@ -77,7 +78,7 @@ function createChirp() {
 
 function getMyChirps() {
   debug('Getting my chirps...')
-  var url = configContent.api_url + '/my_chirps?user='+configContent.user+'&key='+configContent.key
+  var url = config.api_url + '/my_chirps?user='+config.user+'&key='+config.key
   debug(url);
   if (isValidConfig()) {
     request.get(url, function (status, myChirps) {
@@ -88,39 +89,34 @@ function getMyChirps() {
 
 function getAllChirps() {
   debug('Getting all chirps...')  
-  request.get(configContent.api_url + '/all_chirps', function (status, allChirps) {
+  request.get(config.api_url + '/all_chirps', function (status, allChirps) {
     (status === 200) ? log(allChirps) : log(key)    
   })      
 }
 
 function getAllUsers() {
   debug('Getting all users...')  
-  request.get(configContent.api_url + '/all_users', function (status, allUsers) {
+  request.get(config.api_url + '/all_users', function (status, allUsers) {
     (status === 200) ? log(allUsers) : log(key)
   })      
 }
 
-function printHelp() {
-  console.log(readFile('usage.txt'));
-}
-
 function isValidConfig() {
-  return (configContent.key == undefined || configContent.user == undefined) ? (function () { console.log('Please register user first!'); return false})() : true;
+  return (config.key == undefined || config.user == undefined) ? (function () { console.log('Please register user first!'); return false})() : true;
 }
 
 function updateConfig(user, key) {
   
   var newContent = {
-    api_url: configContent.api_url,
+    api_url: config.api_url,
     user: user,
     key: key
   }
-  fs.writeFileSync(configFile, JSON.stringify(newContent), 'utf-8');
-  configContent = newContent;
-  debug('New config content: ' + JSON.stringify(configContent))
+  fs.writeFileSync(configFileName, JSON.stringify(newContent), 'utf-8');
+  config = newContent;
+  debug('New config content: ' + JSON.stringify(config))
 }
 
-function readFile(fileName) {
-  return fs.readFileSync(fileName, 'utf-8');
+function printHelp() {
+  console.log(fs.readFileSync('usage.txt', 'utf-8'));
 }
-

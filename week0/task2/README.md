@@ -7,37 +7,56 @@ Full specification:
 > https://github.com/HackBulgaria/NodeJS-1/tree/master/week0/2-Chirper
 
 
-
-# How to Run the Solution
+# How to Run
 
 * npm i
 
+> to install dependencies
+
+> make sure that deps for the shared modules are also installed in the very root folder of this repo
+
+
+## Server
+
 * npm start (or npm run start-dev to see verbose output)
 
-* in client dir run node chirp_client -h to see its usage
 
-> use DEBUG=* node chirp-client [COMMAND] for verbose output
+## Client
+
+* ```node chirp_client -h``` to see app usage
+
+
+# How to Test
+
+* ```npm run db-test```
+
+> runs db test suite which is in db-test.js
+
 
 
 # Architecture Notes
 
 There are 3 modules:
 
-* server - contains expressjs logic
+### Server 
 
-* db - stores data in memory
-
-* client - contains endpoints and handlers
+* contains http server logic
 
 
+### DB
+
+* stores data in memory
 
 
 
-* db layer is designed as separate module. It has test suite that can be runned as follows:
 
-> go in db folder and run ```npm i```
+### Client 
 
-> run ```npm test```
+* contains endpoints and handlers
+
+
+
+TODO
 
 
 * Connection logic to server is encapsulated inside client/client-api-connector.js

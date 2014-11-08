@@ -31,6 +31,8 @@ The repo structure is as follows:
 
 The folder named "shared" holds modules that are created as reausable components with purpose of being reused across several tasks.
 
+npm i in the root folder !!!
+
 # Solutions to Course Assignments 
 
 Course materials and task assignments are here:

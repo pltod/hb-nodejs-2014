@@ -4,17 +4,23 @@
   "description": "chirp api - twitter like service for micro messaging",
   "main": "client.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start-dev": "DEBUG=* node server.js"
+    "start-dev": "DEBUG=* node server.js",
+    "test-db": "node db-test.js | colortape",
+    "test-db-dev": "DEBUG=* node db-test.js | colortape"
+    
   },
   "author": "Plamen Todorov",
   "license": "MIT",
   "devDependencies": {
+    "colortape": "0.0.4",
     "tape": "^3.0.0"
   },
   "dependencies": {
     "debug": "^2.1.0",
-    "minimist": "^1.1.0"
+    "minimist": "^1.1.0",
+    "lodash": "^2.4.1",
+    "moment": "^2.8.3",
+    "underscore": "^1.7.0"
   }
 }
