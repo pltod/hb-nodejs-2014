@@ -21,6 +21,18 @@ Full specification:
 
 # Architecture Notes
 
+There are 3 modules:
+
+* server - contains expressjs logic
+
+* db - stores data in memory
+
+* client - contains endpoints and handlers
+
+
+
+
+
 * db layer is designed as separate module. It has test suite that can be runned as follows:
 
 > go in db folder and run ```npm i```
