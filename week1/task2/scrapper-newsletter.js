@@ -60,10 +60,10 @@ function s4_wakeUpNotifier() {
     {
       hostname: 'localhost',
       port: 3001,
-      method: 'POST',
       path: '/newArticles'
     },
-    function (err, data) {
+    null,
+    function (err, statusCode, data) {
       err ? console.log(err) : console.log(data)
     }
   );
