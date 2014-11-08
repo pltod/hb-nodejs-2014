@@ -4,33 +4,40 @@ var args = require("minimist")(process.argv.slice(2));
 var readerLocal = require('../../shared/io/reader/reader-file');
 
 
+// Prints help if required
 if (args.help || args.h) {
   printHelp(); 
   return;
 }
 
-run(validateAndAnalyze(args._[0]));
+// Invoke the program
+run(prepareContext(args._[0]));
 
-function run(options) {
-  debug(options);
+
+// Main flow - read, parse, and write. 
+// Weaves the appropriate reader, parser, and writer acording the the context.
+function run(context) {
+  debug(context);
   
-  if (!options.valid) {
+  if (!context.valid) {
     return;
   }
   
-  var read = options.isRemoteFile ? require('../../shared/io/reader-writer/node-http') : readerLocal;
-  var parse = (options.fileExt === 'ini') ? require('../../shared/util/transformer/ini-to-json') : require('../../shared/util/transformer/json-to-ini');
+  var read = context.isRemoteFile ? require('../../shared/io/reader-writer/node-http') : readerLocal;
+  var parse = (context.fileExt === 'ini') ? require('../../shared/util/transformer/ini-to-json') : require('../../shared/util/transformer/json-to-ini');
   var write = require('../../shared/io/writer/writer-file');
-  var outputFileName = (options.fileExt === 'ini') ? options.fileName.concat(".json") : options.fileName.concat(".ini");
+  var outputFileName = (context.fileExt === 'ini') ? context.fileName.concat(".json") : context.fileName.concat(".ini");
   
-  read.async(options.fileWithPath, function (err, data) {
+  read.async(context.fileWithPath, function (err, data) {
     if (err) throw err;
     write(outputFileName, parse(data));
   })
   
 }
 
-function validateAndAnalyze(fileWithPath) {
+// Validates the input.
+// Prepares the context - remote or local file, file extension, file name etc.
+function prepareContext(fileWithPath) {
   var pRemoteHttp=/^http:/;
   var pRemoteHttps=/^https:/;
   var file, fileName, fileExt, hasExt, isRemoteFile;
@@ -75,6 +82,7 @@ function validateAndAnalyze(fileWithPath) {
   }
 }
 
+// Prints help.
 function printHelp() {
   console.log(readerLocal.sync('usage.txt'));
 }
