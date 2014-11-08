@@ -1,12 +1,16 @@
 var debug = require('debug')('chirp-api-client');
 var log = console.log;
 var fs = require('fs');
+var url = require('url');
 
 var api = require('../../shared/io/reader-writer/node-http');
-var request = require("./chirp-api-facade");
+//var request = require("./chirp-api-facade"); //remove this one
 
 var config = require('./config.json');
 var configFileName = "config.json";
+var serverOptions = url.parse(config.api_url);
+debug(serverOptions);
+
 var args = require("minimist")(process.argv.slice(2));
 var commands = Object.keys(args);
 
@@ -23,14 +27,14 @@ if (args.help || args.h) {
 (commands.indexOf('delete') === 1) && deleteChirp();
 (commands.indexOf('getallusers') === 1) && getAllUsers();
 
-
 function register() {
   debug('Registering user...')
   var data = {};
   if(args.user) {
     data.user = args.user;
-    request.post('/register', data, function (status, key) {
-      (status === 200) ? (function () {log('User registered with ID: ' + key); updateConfig(args.user, key)})() : log(key)
+    api.httpPost(getRequestOptions('/register'), data, function (err, status, data) {
+      if (err) throw err;
+      (status === 200) ? (function () {log('User registered with ID: ' + data); updateConfig(args.user, data)})() : log('Server status ' + status + '. Problem with registering user due to ' + data)
     })
   } else {
     console.log('You must specify user name. See help: ');
@@ -47,8 +51,8 @@ function deleteChirp() {
   };
   if (isValidConfig()) {
     if(args.chirpId) {
-      request.delete('/chirp', data, function (status, key) {
-        (status === 200) ? log('Deleted chirp with ID: ' + key) : log(key)
+      api.httpDelete(getRequestOptions('/chirp'), data, function (err, status, data) {
+        (status === 200) ? log('Deleted chirp with ID: ' + data) : log(data)
       })      
     } else {
       console.log('You must specify chirp id. See help: ');
@@ -66,8 +70,9 @@ function createChirp() {
   };
   if (isValidConfig()) {
     if(args.message) {
-      request.post('/chirp', data, function (status, key) {
-        (status === 200) ? log('Registered chirp with ID: ' + key) : log(key)
+      api.httpPost(getRequestOptions('/chirp'), data, function (err, status, data) {
+        if (err) throw err;
+        (status === 200) ? log('Registered chirp with ID: ' + data) : log(data)
       })      
     } else {
       console.log('You must specify message. See help: ');
@@ -81,23 +86,26 @@ function getMyChirps() {
   var url = config.api_url + '/my_chirps?user='+config.user+'&key='+config.key
   debug(url);
   if (isValidConfig()) {
-    request.get(url, function (status, myChirps) {
-      (status === 200) ? log(myChirps) : log(key)      
+    api.httpGet(url, function (err, status, data) {
+      if (err) throw err;
+      (status === 200) ? log(data) : log(data)      
     })      
   }
 }
 
 function getAllChirps() {
   debug('Getting all chirps...')  
-  request.get(config.api_url + '/all_chirps', function (status, allChirps) {
-    (status === 200) ? log(allChirps) : log(key)    
+  api.httpGet(config.api_url + '/all_chirps', function (err, status, data) {
+    if (err) throw err;
+    (status === 200) ? log(data) : log(data)    
   })      
 }
 
 function getAllUsers() {
   debug('Getting all users...')  
-  request.get(config.api_url + '/all_users', function (status, allUsers) {
-    (status === 200) ? log(allUsers) : log(key)
+  api.httpGet(config.api_url + '/all_users', function (err, status, data) {
+    if (err) throw err;
+    (status === 200) ? log(data) : log(data)
   })      
 }
 
@@ -115,6 +123,14 @@ function updateConfig(user, key) {
   fs.writeFileSync(configFileName, JSON.stringify(newContent), 'utf-8');
   config = newContent;
   debug('New config content: ' + JSON.stringify(config))
+}
+
+function getRequestOptions(path) {
+  return {
+    hostname: serverOptions.hostname,
+    port: serverOptions.port,
+    path: path
+  }
 }
 
 function printHelp() {

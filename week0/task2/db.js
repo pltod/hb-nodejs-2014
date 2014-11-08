@@ -67,51 +67,18 @@ function insertChirp(userId, chirpText) {
 }
 
 function deleteChirp(userId, chirpId) {
-  function removeUser() {
-    var removedUser;
-    
-    db = _.filter(db, function (user) {
-      if (user.userId === userId) {
-        removedUser = user
-      }
-      return user.userId !== userId;
-    });
+  var user, chirp;
   
-    if (removedUser === undefined) {
-      throw new Error('User does not exist!');
-    }
-    
-    return removedUser;
-  }
+  user = _.findWhere(db, {"userId": userId});
+  if (!user) throw new Error('User does not exist!');
   
-  function updateChirps(chirps) {
-    var removedChirp;
-    
-    var updatedChirps = _.filter(chirps, function (chirp) {
-      if (chirp.chirpId === chirpId) {
-        removedChirp = chirp;
-      }
-      return chirp.chirpId !== chirpId;
-    });
-    
-    if (removedChirp === undefined) {
-      throw new Error('Chirp with such id does not exist!');
-    }
-    return updatedChirps;
-  }
+  chirp = _.findWhere(user.chirps, {"chirpId": chirpId});
+  if(!chirp) throw new Error('Chirp with such id does not exist for this user!');
   
-  var userForUpdate = removeUser();
+  user.chirps = _.without(user.chirps, chirp);
+  db = _.without(db, user);
   
-  debug("Chirps before deletion: ");
-  debug(userForUpdate.chirps);
-  
-  userForUpdate.chirps = updateChirps(userForUpdate.chirps);
-  
-  debug("Chirps after deletion: ");  
-  debug(userForUpdate.chirps);  
-  
-  db.push(userForUpdate);
-  
+  db.push(user);
   return chirpId;
 }
 
@@ -157,7 +124,9 @@ function findAllUsers() {
 }
 
 function findUserChirps(user, userId) {
-  return findUser(user, userId).chirps
+  var user = findUser(user, userId);
+  if (!user) throw new Error('User does not exist!');
+  return user.chirps;
 }
 
 function findChirpById(chirpId) {

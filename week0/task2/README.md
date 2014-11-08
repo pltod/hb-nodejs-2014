@@ -23,7 +23,7 @@ Full specification:
 
 ## Client
 
-* ```node chirp_client -h``` to see app usage
+* ```node chirp_client -h``` to see cli app usage
 
 
 # How to Test
@@ -38,28 +38,16 @@ Full specification:
 
 There are 3 modules:
 
-### Server 
+* server
 
-* contains http server logic
-
-
-### DB
-
-* stores data in memory
+> contains http server logic
 
 
+* db
+
+> stores data in memory
 
 
-### Client 
+* chirp_client
 
-* contains endpoints and handlers
-
-
-
-TODO
-
-
-* Connection logic to server is encapsulated inside client/client-api-connector.js
-
-> in such way it is reused in command line program and in a test suite
-
+> cli app for interacting with the chirp server

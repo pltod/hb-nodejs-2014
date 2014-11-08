@@ -7,8 +7,12 @@
     "start": "node server.js",
     "start-dev": "DEBUG=* node server.js",
     "test-db": "node db-test.js | colortape",
-    "test-db-dev": "DEBUG=* node db-test.js | colortape"
-    
+    "test-db-dev": "DEBUG=* node db-test.js | colortape",
+    "register-user": "DEBUG=* node chirp_client --register --user 'test3'",
+    "get-all-users": "node chirp_client --getallusers",
+    "create-chirp": "node chirp_client --create --message 'testing'",
+    "get-all-chirps": "node chirp_client --getall",
+    "get-current-user-chirps": "node chirp_client --getself"
   },
   "author": "Plamen Todorov",
   "license": "MIT",

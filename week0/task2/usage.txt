@@ -15,8 +15,5 @@ usage:
   node chirp_client --delete {--chirpid CHIRP ID}
     Deletes the chirp with the given id if the key matches the key of the chirp owner. Otherwise returns a 403 response code.      
 
-  node chirp_client --mygetallusers
+  node chirp_client --getallusers
     Returns all the users in the DB.
-
-  node chirp_client --mygetchirps
-    Returns the chirp with the id specified or all the chirps for the user with id specified.
