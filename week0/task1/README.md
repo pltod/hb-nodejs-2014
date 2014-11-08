@@ -19,7 +19,7 @@ Task specification:
 > to see how to use the app
 
 
-## How To Test
+# How To Test
 
 * npm test
 
