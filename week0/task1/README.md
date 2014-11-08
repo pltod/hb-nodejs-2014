@@ -13,20 +13,22 @@ Task specification:
 
 > to install dependencies
 
-* npm test 
-
-> to run original test suite - creates files in the root folder parsing files from test-files directory
-
-
-## More Info
 
 * ```node parse -h```
 
-> to see the app help
+> to see how to use the app
+
+
+## How To Test
+
+* npm test
+
+> runs original test suite - creates files in the root folder parsing files from test-files directory
+
 
 * ```npm run {command}```
 
-> see package.json script property for available commands that execute different app cases
+> see package.json script property for available commands that execute different use cases
 
 
 # Architecture Notes
