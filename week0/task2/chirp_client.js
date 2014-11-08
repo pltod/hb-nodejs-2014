@@ -4,7 +4,6 @@ var fs = require('fs');
 var url = require('url');
 
 var api = require('../../shared/io/reader-writer/node-http');
-//var request = require("./chirp-api-facade"); //remove this one
 
 var config = require('./config.json');
 var configFileName = "config.json";
