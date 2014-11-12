@@ -17,7 +17,9 @@ var rgbSport = {
   blue: xMarksTheSpot
 };
 
-convolution(rgbSport, verticalBlur).rgb.applyKernel()
+convolution(xMarksTheSpot)
+  .rgb
+  .applyKernel(verticalBlur)
   .then(function(outputImage) {
     console.log(outputImage)
   })
@@ -25,7 +27,9 @@ convolution(rgbSport, verticalBlur).rgb.applyKernel()
     console.log(e)
   });
 
-convolution(xMarksTheSpot, verticalBlur).monochrome.applyKernel()
+convolution(xMarksTheSpot)
+  .monochrome
+  .applyKernel(verticalBlur)
   .then(function(outputImage) {
     console.log(outputImage)
   })
@@ -33,7 +37,8 @@ convolution(xMarksTheSpot, verticalBlur).monochrome.applyKernel()
     console.log(e)
   });
 
-convolution(rgbSport).rgb.edgeDetection()
+convolution(rgbSport)
+  .rgb.edgeDetection()
   .then(function(outputImage) {
     console.log(outputImage)
   })
@@ -41,7 +46,9 @@ convolution(rgbSport).rgb.edgeDetection()
     console.log(e)  
   });
 
-convolution(xMarksTheSpot).monochrome.edgeDetection()
+convolution(xMarksTheSpot)
+  .monochrome
+  .edgeDetection()
   .then(function(outputImage) {
     console.log(outputImage)
   })
@@ -49,7 +56,9 @@ convolution(xMarksTheSpot).monochrome.edgeDetection()
     console.log(e)
   });
 
-convolution(rgbSport).rgb.boxBlur()
+convolution(rgbSport)
+  .rgb
+  .boxBlur()
   .then(function(outputImage) {
     console.log(outputImage)
   })
@@ -57,7 +66,9 @@ convolution(rgbSport).rgb.boxBlur()
     console.log(e)
   });
 
-convolution(xMarksTheSpot).monochrome.boxBlur()
+convolution(xMarksTheSpot)
+  .monochrome
+  .boxBlur()
   .then(function(outputImage) {
     console.log(outputImage)
   })

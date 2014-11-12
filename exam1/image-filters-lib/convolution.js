@@ -12,7 +12,7 @@ var boxBlurKernel = [
   [1, 1, 1]
 ];
 
-module.exports = function(imageData, kernel) {
+module.exports = function(imageData) {
 
   if (!imageData) {
     console.log('Please specify image!')
@@ -25,9 +25,9 @@ module.exports = function(imageData, kernel) {
     green: imageData.green,
     blue: imageData.blue
   };
+  var kernel;
   var imageWidth = imageData.red ? imageData.red[0].length : imageData[0].length;
   var imageHeight = imageData.red ? imageData.red.length : imageData.length;
-  var kernel = kernel ? setKernel(kernel) : null;
   var boxBlur = false;
 
   return {
@@ -61,12 +61,16 @@ module.exports = function(imageData, kernel) {
       /**
        * Applies kernel to an image.
        *
-       * @param {Array} imageData Array-of-Arrays that represents the image
-       * @param {Array} kernel Array-of-Arrays that represents the kernel used for image convolution
+       * @param {Array} k Array-of-Arrays that represents the kernel used for image convolution
        * @returns Returns a promise object that will be resolved once the kernel has been applied to the image.
        * @type Object
        */
-      applyKernel: function() {
+      applyKernel: function(k) {
+        if (!k) {
+          console.log('Please specify kernel!')
+          return;
+        }
+        kernel = setKernel(k);        
         return processImage('alpha');
       }
     },
@@ -77,7 +81,6 @@ module.exports = function(imageData, kernel) {
       /**
        * Applies edge detection to an image.
        *
-       * @param {Array} imageData Array-of-Arrays that represents the image
        * @returns Returns a promise object that will be resolved once the image processing has finished.
        * @type Object
        */
@@ -89,7 +92,6 @@ module.exports = function(imageData, kernel) {
       /**
        * Applies kernel to an image.
        *
-       * @param {Array} imageData Array-of-Arrays that represents the image
        * @returns Returns a promise object that will be resolved once the image processing has finished.
        * @type Object
        */
@@ -102,12 +104,16 @@ module.exports = function(imageData, kernel) {
       /**
        * Applies kernel to an image.
        *
-       * @param {Array} imageData Array-of-Arrays that represents the image
        * @param {Array} kernel Array-of-Arrays that represents the kernel used for image convolution
        * @returns Returns a promise object that will be resolved once the kernel has been applied to the image.
        * @type Object
        */
-      applyKernel: function() {
+      applyKernel: function(k) {
+        if (!k) {
+          console.log('Please specify kernel!')
+          return;
+        }
+        kernel = setKernel(k);        
         return processMultipleImages(_.map(["red", "green", "blue"], processImage));
       }
     }
