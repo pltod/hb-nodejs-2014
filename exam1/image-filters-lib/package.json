@@ -1,0 +1,20 @@
+{
+  "name": "convolution",
+  "version": "0.0.0",
+  "description": "Image processing with convolution matrix",
+  "main": "convolution.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "keywords": [
+    "image",
+    "convolution",
+    "kernel"
+  ],
+  "author": "Plamen Todorov / @pltod",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.3.11",
+    "lodash": "^2.4.1"
+  }
+}
