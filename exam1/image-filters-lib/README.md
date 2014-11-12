@@ -24,9 +24,9 @@ var verticalBlur = [
   [0, 1, 0]
 ];
 
-convolution(xMarksTheSpot, verticalBlur)
+convolution(xMarksTheSpot)
   .monochrome
-  .applyKernel()
+  .applyKernel(verticalBlur)
   .then(function(outputImage) {
     console.log(outputImage)
   })
