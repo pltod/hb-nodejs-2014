@@ -4,7 +4,7 @@
   "description": "Image processing with convolution matrix",
   "main": "convolution.js",
   "scripts": {
-    "test": "node test"
+    "test": "node convolution-test"
   },
   "keywords": [
     "image",
