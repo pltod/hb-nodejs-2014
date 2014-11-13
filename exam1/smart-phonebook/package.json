@@ -1,0 +1,19 @@
+{
+  "name": "smart-phonebook",
+  "version": "0.0.0",
+  "description": "REST API for smart phonebooks",
+  "main": "server.js",
+  "scripts": {
+    "test": "node convolution-test"
+  },
+  "keywords": [
+    "phone",
+    "api",
+    "contacts"
+  ],
+  "author": "Plamen Todorov / @pltod",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.10.2"
+  }
+}
