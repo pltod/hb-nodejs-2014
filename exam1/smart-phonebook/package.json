@@ -2,9 +2,12 @@
   "name": "smart-phonebook",
   "version": "0.0.0",
   "description": "REST API for smart phonebooks",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "node convolution-test"
+    "start": "node index",
+    "start-dev": "DEBUG=* node index",
+    "test": "mocha test/server-test",    
+    "test-dev": "DEBUG='superagent, snippet-app-server-test' mocha test/server-test"
   },
   "keywords": [
     "phone",
@@ -14,6 +17,14 @@
   "author": "Plamen Todorov / @pltod",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.10.2"
+    "body-parser": "^1.9.2",
+    "debug": "^2.1.0",
+    "express": "^4.10.2",
+    "underscore": "^1.7.0",
+    "mongodb": "^1.4.19"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "supertest": "^0.14.0"
   }
 }
