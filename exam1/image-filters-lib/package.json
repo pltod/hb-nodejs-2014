@@ -4,7 +4,8 @@
   "description": "Image processing with convolution matrix",
   "main": "convolution.js",
   "scripts": {
-    "test": "node convolution-test"
+    "test": "node convolution-test | colortape",
+    "test-dev": "DEBUG=* node convolution-test"
   },
   "keywords": [
     "image",
@@ -16,5 +17,8 @@
   "dependencies": {
     "bluebird": "^2.3.11",
     "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "tape": "^3.0.3"
   }
 }

@@ -24,8 +24,8 @@ var verticalBlur = [
   [0, 1, 0]
 ];
 
-convolution(xMarksTheSpot)
-  .monochrome
+convolution()
+  .monochrome(xMarksTheSpot)
   .applyKernel(verticalBlur)
   .then(function(outputImage) {
     console.log(outputImage)
@@ -45,9 +45,11 @@ convolution(xMarksTheSpot)
 
 # Architecture Notes
 
-* From performance point of view:
+* Considering the performance aspect:
 
-> Lodash is used for the loops and Bluebird is used for the promises
+> Lodash is used for the loops
+
+> Bluebird is used for the promises
 
 > Each row of the input image is scheduled for the next event loop to not block the execution for too long
 
