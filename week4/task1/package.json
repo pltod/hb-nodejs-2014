@@ -2,7 +2,7 @@
   "name": "snippet-app-server",
   "version": "0.0.0",
   "description": "CRUD for code snippets served by Express stored in Mongo",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index",
     "start-dev": "DEBUG=* node index",
