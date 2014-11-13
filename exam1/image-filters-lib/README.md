@@ -47,14 +47,14 @@ convolution()
 
 * Considering the performance aspect:
 
-> Lodash is used for the loops
+> Lodash is used for loop statements
 
-> Bluebird is used for the promises
+> Bluebird is used for constructing Promises
 
-> Each row of the input image is scheduled for the next event loop to not block the execution for too long
+> Each row of the input image is scheduled for the next event loop. In this way the program is only blocked for the duration of each row calculations.
 
 * Additional optimization could be made:
 
-> using typed array Uint8ClampedArray 
+> Using typed array Uint8ClampedArray 
 
-> or nodejs libraries like ndarray (https://www.npmjs.org/package/ndarray)
+> Or nodejs libraries like ndarray (https://www.npmjs.org/package/ndarray)
