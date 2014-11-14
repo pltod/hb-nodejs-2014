@@ -1,0 +1,4 @@
+{"groupName": "Mladost", "type": "exact", "contacts": []}
+{"groupName": ["Mladost", "Mldost"], "type": "fuzzy", "contacts": []}
+
+[{"phoneNumber": "123", "personIdentifier": "Maldost"},{"phoneNumber": "32", "personIdentifier": "Lebron USA Miami"}]

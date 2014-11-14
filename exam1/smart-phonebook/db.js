@@ -7,35 +7,68 @@ var ObjectID = mongo.ObjectID;
 
 module.exports = function(app, callback) {
 
-  var collection;
+  var contactsCollection;
+  var groupsCollection;
 
   mongo.connect(url, function(err, db) {
-    collection = db.collection(config.defaultCollection);
+    contactsCollection = db.collection(config.contactsCollection);
+    groupsCollection = db.collection(config.groupsCollection);
     app.db = {
       saveContact: function(contact, callback) {
-        collection.insert(contact, function(err, result) {
+        contactsCollection.insert(contact, function(err, result) {
           callback(err, result)
         });
       },
       findContactById: function(id, callback) {
-        collection.findOne({_id: ObjectID(id)}, function(err, contact) {
+        contactsCollection.findOne({_id: ObjectID(id)}, function(err, contact) {
           callback(err, contact)
         });
       },
       findAllContacts: function(callback) {
-        collection.find().toArray(function(err, contacts) {
+        contactsCollection.find().toArray(function(err, contacts) {
           callback(err, contacts);
         });
       },
       deleteContact: function(id, callback) {
-        collection.remove({_id: ObjectID(id)}, function(err, result) {
+        contactsCollection.remove({_id: ObjectID(id)}, function(err, result) {
           callback(err, result)
+        });
+      },
+      saveOrUpdateExactGroup: function (groupName, newContact, oldContact, callback) {
+        groupsCollection.update(
+          { type: 'exact', groupName: groupName },
+          { $addToSet: { contacts: { $each: [newContact, oldContact] } } },
+          { upsert: true, writeConcern: {w: 1} },
+          callback
+        )
+      },
+      saveOrUpdateFuzzyGroup: function(groupName1, groupName2, newContact, oldContact, callback) {
+        groupsCollection.update(
+          { type: 'fuzzy', groupName: { $in: [groupName1, groupName2] } },
+          { 
+            $addToSet: { 
+              groupName: { $each: [groupName1, groupName2] },
+              contacts: { $each: [newContact, oldContact] } 
+            },
+          },
+          { upsert: true, writeConcern: {w: 1} },
+          callback
+        )
+      },
+      findAllGroups: function(callback) {
+        groupsCollection.find().toArray(function(err, contacts) {
+          callback(err, contacts);
         });
       }
     };
     app.closeDb = db.close.bind(db);
     app.cleanColl = function (callback) {
-      collection.remove(function (err, result) {
+      contactsCollection.remove(function (err, result) {
+        callback(err, result)
+      })
+    };
+    app.cleanGroups = function (callback) {
+      groupsCollection.remove(function (err, result) {
         callback(err, result)
       })
     };

@@ -1,20 +1,31 @@
 var debug = require('debug')('phonebook-app-api');
+var groupManager = require('./group-manager');
+var _ = require('lodash');
+
 module.exports = function (app) {
 
   app.post("/contact", function(req, res) {
     debug('Saving contact...');
-    debug(req.body.phoneNumber);
-    debug(req.body.personIdentifier);
   
     app.db.saveContact(req.body, function (err, result) {
-      err ? pong(res, 500, {"result": "Unable to save contact!"}) : pong(res, 200, result) 
-    });
+      if (err) {
+        pong(res, 500, {"result": "Unable to save contact!"})
+      } else {
+        setImmediate(function () {
+          groupManager.process(app.db, result[0], function (err, result) {
+            err ? console.log(err) : console.log(result)
+          });
+        }, 0);
+        pong(res, 200, result);
+      }
+    })
+    
   });
 
   app.get("/contact", function(req, res) {
     debug('Getting all contacts...');
-    app.db.findAllContacts(function(err, snippets) {
-      err ? pong(res, 500, {"result": "Unable to find snippets!"}) : pong(res, 200, snippets) 
+    app.db.findAllContacts(function(err, contacts) {
+      err ? pong(res, 500, {"result": "Unable to find contacts!"}) : pong(res, 200, contacts) 
     });
   });  
   
@@ -22,16 +33,22 @@ module.exports = function (app) {
     debug('Getting contact for...');
     debug(req.params.id);
 
-    app.db.findContactById(req.params.id, function(err, snippet) {
-      err ? pong(res, 500, {"result": "Unable to find snippet!"}) : pong(res, 200, snippet) 
+    app.db.findContactById(req.params.id, function(err, contact) {
+      err ? pong(res, 500, {"result": "Unable to find contact!"}) : pong(res, 200, contact) 
     });
   });
   
   app.delete("/contact/:id", function(req, res) {
     debug('Deleting contact...');
-    debug(req.params.id);
     app.db.deleteContact(req.params.id, function (err, result) {
-      err ? pong(res, 500, {"result": "Unable to delete snippet!"}) : pong(res, 200, result) 
+      err ? pong(res, 500, {"result": "Unable to delete contact!"}) : pong(res, 200, result) 
+    });
+  });  
+
+  app.get("/groups", function(req, res) {
+    debug('Getting all groups...');
+    app.db.findAllGroups(function(err, contacts) {
+      err ? pong(res, 500, {"result": "Unable to add contact!"}) : pong(res, 200, contacts) 
     });
   });  
   
