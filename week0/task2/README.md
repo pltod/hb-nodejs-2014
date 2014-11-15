@@ -1,3 +1,8 @@
+**STATE**
+
+[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+
+
 # Task Summary
 
 Twitter like service for sending micro messages.

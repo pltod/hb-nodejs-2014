@@ -4,7 +4,5 @@
 
 
 
-Simple expressjs starter skeleton
 
-
-https://github.com/HackBulgaria/NodeJS-1/tree/master/week1/0-express-example
+task https://github.com/HackBulgaria/NodeJS-1/tree/master/week5/2-Linking-Accounts

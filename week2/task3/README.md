@@ -1,3 +1,8 @@
+**STATE**
+
+[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
+
+
 # Task Summary
 
 Geospatial service for storing and finding locations.

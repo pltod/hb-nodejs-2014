@@ -1,3 +1,7 @@
+**STATE**
+
+[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+
 # Task Summary
 
 Writing converter from ini to json and vice versa that can work with local and remote files.

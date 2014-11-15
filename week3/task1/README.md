@@ -1,3 +1,8 @@
+**STATE**
+
+[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
+
+
 # Task Summary
 
 Github API based service that:
