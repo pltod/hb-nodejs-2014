@@ -139,7 +139,7 @@ module.exports = function(imageData) {
             .catch (function(e) {
               reject(e)
             })
-        }, 0)
+        })
         debug('Row Promise send to callback queue');
       });
     })
