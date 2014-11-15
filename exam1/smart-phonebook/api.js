@@ -15,7 +15,7 @@ module.exports = function (app) {
           groupManager.process(app.db, result[0], function (err, result) {
             err ? console.log(err) : console.log(result)
           });
-        }, 0);
+        });
         pong(res, 200, result);
       }
     })

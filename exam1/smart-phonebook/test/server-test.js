@@ -1,5 +1,5 @@
 var debug = require('debug')('snippet-app-server-test');
-var request = require('supertest')
+var request = require('supertest');
 var expect = require('chai').expect;
 
 describe('Contact API', function() {
@@ -13,16 +13,19 @@ describe('Contact API', function() {
       if (err) {
         console.log('Unable to start application')
       } else {
-        app.cleanColl(function (err, result) {
-          if (err) {
-            debug('Collection is not cleaned')            
-          }
-          agent = request.agent(app);
+        app.cleanGroups(function (err, result) {
+          if (err) console.log('Groups is not cleaned')
+          app.cleanContacts(function (err, result) {
+            if (err) {
+              console.log('Contacts collection is not cleaned')            
+            }
+            agent = request.agent(app);
           
-          // not nice
-          agent.closeDb = app.closeDb;
-          debug('App server initialized and DB is ready.')
-          done();
+            // not nice
+            agent.closeDb = app.closeDb;
+            debug('App server initialized and DB is ready.')
+            done();
+          })
         })
       }
     });
@@ -110,6 +113,7 @@ describe('Contact API', function() {
       .end(function(err, res) {
         expect(err).to.be.a('null');
         expect(res.status).to.be.equal(200);
+        expect(res.body.length).to.be.equal(2);
         done();
       });
   })

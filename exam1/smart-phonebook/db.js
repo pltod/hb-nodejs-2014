@@ -62,7 +62,7 @@ module.exports = function(app, callback) {
       }
     };
     app.closeDb = db.close.bind(db);
-    app.cleanColl = function (callback) {
+    app.cleanContacts = function (callback) {
       contactsCollection.remove(function (err, result) {
         callback(err, result)
       })

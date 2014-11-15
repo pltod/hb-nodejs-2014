@@ -17,8 +17,6 @@ Full specification:
 
 * npm start (or npm run start-dev to see verbose output)
 
-* see test/commands.txt for curl commands
-
 * see api.js for available endpoints that can be runned in the browser
 
 
@@ -31,10 +29,12 @@ Full specification:
 
 # Architecture Notes
 
-There are 3 modules:
+There are 4 modules:
 
 * server - contains expressjs logic
 
 * api - contains endpoints and handlers
 
 * db - contains mongodb logic
+
+* groupManager - handles group creation logic
