@@ -1,7 +1,5 @@
 # Week 5
 
-
-
 * Authorisation
 
 * Authentication

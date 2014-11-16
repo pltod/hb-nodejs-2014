@@ -1,0 +1,5 @@
+// POST JSON
+curl -H "Content-Type: application/json" --data @map.json http://localhost:8000/map
+
+// GET JSON
+curl -X GET -H "Content-Type: application/json" --data @sitemap.json http://localhost:8000/sitemap
