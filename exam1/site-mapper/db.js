@@ -13,13 +13,10 @@ module.exports = function(app, callback) {
     sitemapsCollection = db.collection(config.defaultCollection);
     app.db = {
       saveSitemap: function(url, callback) {
-        sitemapsCollection.findAndModify( 
-          { url: url }, 
-          [['b', 1]],
-          { status: sitemap.status, url: url, links: [] },
-          {new:true, upsert:true, w:1},          
-          callback
-        )
+        sitemapsCollection.insert({ status: "currently crawling", url: url, links: []  }, 
+        function(err, result) {
+          callback(err, result)
+        });
       },
       findAllSitemaps: function(callback) {
         sitemapsCollection.find(
@@ -33,12 +30,22 @@ module.exports = function(app, callback) {
         sitemapsCollection.findOne(
         {_id: ObjectID(id)}, 
         {_id: 0, url: 1, status: 1, links: 1},          
-        function(err, contact) {
-          callback(err, contact)
+        function(err, sitemap) {
+          callback(err, sitemap)
         });
       },
-      updateSitemap: function (data, callback) {
-        //TODO
+      findSitemapByUrl: function(url, callback) {
+        sitemapsCollection.findOne({url: url}, function(err, sitemap) {
+          callback(err, sitemap)
+        });
+      },
+      updateSitemap: function (id, url, links, callback) {
+        sitemapsCollection.findAndModify( 
+          { _id: ObjectID(id) }, 
+          [['_id', 1]],
+          { status: 'done', links: links, url: url },
+          callback
+        )
       }
     };
     app.closeDb = db.close.bind(db);
