@@ -50,7 +50,7 @@ The list with created applications and used techniques and technologies.
 > in-memory db with node-persist, express, nodemailer, underscore, async
 
 
-**[NodeJS command line utility for MongoDB Simple Management](https://github.com/pltod/lab-mongodb)**
+**[NodeJS command line utility for MongoDB Simple Management](https://github.com/pltod/mdb)**
 
 * Could be registered with npm link and used for starting mongodb in any directory, as well as collection/db initialisation/reinitialisation with data stored in JSON. Use convention over configuration to work with predefined default paths and file names. Still give possibility to be configured.
 
