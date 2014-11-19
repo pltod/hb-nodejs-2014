@@ -22,7 +22,7 @@ module.exports = {
             err ? console.log(err) : console.log(result)
           });
         
-          // Schedule Part 2 in the next event loop; We could play with the delay of the setImmediate 
+          // Schedule Part 2 in the next event loop
           setImmediate(function () {
             processFuzzyGroups(db, oldContact, newContact, function (err, result) {
               finishedRequests++;
