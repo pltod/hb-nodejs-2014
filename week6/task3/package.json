@@ -1,0 +1,20 @@
+{
+  "name": "number-gen-stream",
+  "version": "0.0.0",
+  "description": "Stream that reads a big file and calculates the sum of contained numbers",
+  "main": "index.js",
+  "scripts": {
+    "test": "node . | colortape",
+    "test-dev": "DEBUG='*' node test | colortape"
+  },
+  "author": "Plamen Todorov",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.1.0",
+    "split": "^0.3.1"
+  },
+  "devDependencies": {
+    "colortape": "0.0.4",
+    "tape": "^3.0.2"
+  }
+}
