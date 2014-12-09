@@ -13,7 +13,7 @@ NodeJS/JavaScript coding 24x7 in [my](https://twitter.com/pltod) [@HackBulgaria]
 
 The list with created applications and used techniques and technologies.
 
-**[Web Application for Drawing Triangles on HTML5 Canvas](https://github.com/pltod/hb-nodejs-2014-two)**
+**[Web Application for Drawing Triangles on HTML5 Canvas](https://github.com/pltod/draw-on-canvas-app)**
 
 * Draw triangles on HTML5 Canvas, save them in localstorage, and open saved drawings. 
 
