@@ -1,0 +1,31 @@
+{
+  "name": "hb-nodejs-2014-one",
+  "version": "0.0.1",
+  "description": "problem solving",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pltod/hb-nodejs-2014.git"
+  },
+  "keywords": [
+    "nodejs",
+    "tasks"
+  ],
+  "devDependencies": {
+    "nodeunit": "^0.9.0",
+    "tape": "^3.0.0",
+    "underscore": "^1.7.0"
+  },
+  "scripts": {
+    "test": "nodeunit test/test-with-nodeunit.js",
+    "test-more": "node test/test-with-tape.js"
+  },
+  "author": "@pltod",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pltod/hb-nodejs-2014/issues"
+  },
+  "homepage": "https://github.com/pltod/hb-nodejs-2014"
+}
